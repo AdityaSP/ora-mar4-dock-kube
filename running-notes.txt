@@ -174,3 +174,148 @@ ef108e573ae2        gcr.io/google_containers/pause-amd64:3.0                    
 CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
 
 /home/docker>
+
+----------------------------------------------------------------------------------
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container run nginx
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+6ae821421a7d: Already exists
+58702d4af197: Pull complete
+b165f42e8fd4: Pull complete
+Digest: sha256:18c0755594af107923baa2e65fcef35aea4ab0cea7862d19c27aa127bacb458e
+Status: Downloaded newer image for nginx:latest
+
+/home/docker> docker container run -d nginx
+46f6fc70a94de4e0c2cac9fb9f0d669b2a84feee9f1b5beb25236578a72feb8f
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   30 seconds ago      Up 29 seconds       80/tcp                                                               angry_jepsen
+
+/home/docker>
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   2 minutes ago       Up 2 minutes        80/tcp                                                               angry_jepsen
+
+/home/docker> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                     PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   3 minutes ago       Up 3 minutes               80/tcp                                                               angry_jepsen
+a662d488366d        nginx                                                            "nginx -g 'daemon ..."   19 minutes ago      Exited (0) 4 minutes ago                                                                        naughty_meitner
+e8d629a7154e        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         eager_ramanujan
+1d708d3a7530        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         vigilant_mayer
+
+/home/docker> docker container start a662d488366d
+a662d488366d
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   4 minutes ago       Up 4 minutes        80/tcp                                                               angry_jepsen
+a662d488366d        nginx                                                            "nginx -g 'daemon ..."   20 minutes ago      Up 3 seconds        80/tcp                                                               naughty_meitner
+
+/home/docker> docker container stop a662d488366d
+a662d488366d
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                     PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   5 minutes ago       Up 5 minutes               80/tcp                                                               angry_jepsen
+a662d488366d        nginx                                                            "nginx -g 'daemon ..."   21 minutes ago      Exited (0) 5 seconds ago                                                                        naughty_meitner
+e8d629a7154e        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         eager_ramanujan
+1d708d3a7530        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         vigilant_mayer
+
+/home/docker> docker container rm a662d488366d
+a662d488366d
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                     PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   6 minutes ago       Up 6 minutes               80/tcp                                                               angry_jepsen
+e8d629a7154e        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         eager_ramanujan
+1d708d3a7530        alpine                                                           "echo 'hello world'"     2 days ago          Created                                                                                         vigilant_mayer
+
+/home/docker> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+
+Deleted Containers:
+c8d5e067c8ca72b2014fdb8ca794ea20895a0fdb0fad53f1ee2d6abdab93e289
+77b2adf56ac6ac485dfba673d91dc1fe4440dc0e2fd453fe1195e959c1cbb287
+4001c52779d95130c8758f05af2b79129625e95fb8be19ce9843d164c6576a7e
+8bdf5e53052292ffcbf790fe1d9ddf7ae56cdb8efb403fcb221ba6624e58f891
+2864f80320281f9efefef70bd3830db87b9472424d1b29ffaa0224f62ace466c
+319a0ac91d5e9b651485470e7924f6dc8ba694cbf291961f4e9047a3730dd633
+ecaf251a9bcc3ceee2f71086bfca2c55c22ba76ee20bf06e09cd9fa8552e12d7
+e8d629a7154e7a8e4f36202076eca8256b70ddb3345f7f330be5e67eb4dcf720
+1d708d3a7530dd39a38885dc115bd29a7a47d902bbec5c11829fb59ca56d01db
+2d05c85b5b9252e8a7f2b6c03218a0c132e753648d7b3f58c5ed71fd965d6787
+e4cb287359999f77fb79556e829662be2706ba3709d2d1e74d2a19ad0262a1f8
+d39688a8f7d69f64406aefb88c12be074dd82295f8c17db39a69634b6220ff8c
+6cc31b59b7845ec8e7e8c1282f3e225a49053fff1f60a2742934300cc557f85d
+a33b5e2274a9638622835f848c3de9a05983c3a969713fbd530536e28df9b75c
+8b37075ff5255e737112db8cbe63f9948316bbfbf64efa8455c58a69fa8d057e
+0c7e37c550a3e5d39bd10670b172fd297f8b5322989a1664b6ca8ce2fcfd6889
+77bea508f7f39ab8c884215c134b59703af58ef0806ca1faf461f75899d8eb08
+84cfe15d7f5c40c717072b7152137b32d188feb127fd5ea60606cb2b7fd53008
+ae8127bce0514815737460c3a117916310e92320dc8e0f2c0d46bde996432df6
+4a8faca18ba1daeb9a13eb279dee52277a76bb7cfcc2b9b8fb66fa1af8bb1959
+3b8ced04eef80f608c17eec75574f5ef3df1aa7406bf17956b0af65806ff416d
+d1a6bd20b7cfa2afd644148435b315b90c9309fe8c8771982b639e106b1731de
+48677aa9fbc0f1406bcd0079fa6aee91e2fcc2e83ddda7157dea6f766f9bbfed
+9477a49289b0290da56226e8a6a88268f7799d001266b657e915841281b660d0
+f165051261ac9f4e362d0588a9367e69b4090c32f3641b8f81329fc2b5159ef9
+05f527be8ba77743f70247f109076d1f55dfce1c384966df311277325298760d
+33d125ab8978488b508068baef6284e07dc64882fdc46e8d2c3b425262fbdb1c
+0d1514fe10062babde9437de55af125c9efc7b300a1208c5237e0594932e6398
+bb7a7122ff1844d9c51647515568edd71300e447c99eaa7b44be482fa3023a97
+4b3a9b5aeff0260a9076e084c5c8edaa8f105899423c5d80e6d7e98fb4b92f30
+e4a661e46c4c71aa75cb542d705fb4113eac3bdc7ef31f2e214a70f735058328
+88f4b1eba7db750dcb2a12aa887dd6eefe01dd87572b6c2d7eba7f57c81cad90
+817d5451b1c46bd9177076e10530eec15d37d14eaa0316b77d871451567e6232
+5cb274e93858c0f640fc36b69f0da1dd88f958c0b97fc24bde043dbc0d3b76a2
+4d1af4260870867dd60c059cb472e0bac612cd081f2d49b2611c29a580e4fe0d
+41676d516bc30a3396230e75497b8ae99824430944d2ac295d8b3a4857a0680f
+bdac53d832e9d177d3b3e1f0c11693d444a9aa6d580fda6e29af35552ab22dea
+8c437119e918e60570f9861ba2269f4441dd43b0b94d264b4f74d2216fb47455
+5bacdef6a0af74304263c9172e8e223cd1d658d2e3499d4c78db6350d2afeb4c
+4a083918bb458bcbeac89e717da206e2fdff5b5f495ad5eb2cc66d321eb61d32
+61b100f0485cc452dd9b5b0927e6e80345009cfb584b676ea7212d0e8005a96d
+fe9e99e43fc0f7166ca2aeeea1d232aa775e95961f794b04823be4e4a6998830
+b0441bf29fd56002dab8b25a84c363a631414ae6bbed6acfc2587f533eaa612e
+6bc38a31c5d17dcf825a5e425a48ebbffacd5a7cecb57c3908f31d7b0d160f3b
+8f18e1f3dc012e8b4c6b7c14d656ca6d9463a05eb42c25509584733a4ea360e8
+042b29740ef0ba8609bb588479fd38e111ab933bea32dab192dca2de8d30c3ee
+
+Total reclaimed space: 1.567MB
+
+/home/docker>
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   7 minutes ago       Up 7 minutes        80/tcp                                                               angry_jepsen
+
+/home/docker> docker container ls| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+46f6fc70a94d        nginx                                                            "nginx -g 'daemon ..."   8 minutes ago       Up 8 minutes        80/tcp                                                               angry_jepsen
+
+/home/docker> docker container rm 46f6fc70a94d
+Error response from daemon: You cannot remove a running container 46f6fc70a94de4e0c2cac9fb9f0d669b2a84feee9f1b5beb25236578a72feb8f. Stop the container before attempting removal or force remove
+
+/home/docker> docker container rm -f 46f6fc70a94d
+46f6fc70a94d
+
+/home/docker> history | grep container | tail -n 10
+   22  docker container stop a662d488366d
+   23  docker container ls -a| grep -v k8s
+   24  docker container rm a662d488366d
+   25  docker container ls -a| grep -v k8s
+   26  docker container prune
+   27  docker container ls -a| grep -v k8s
+   28  docker container ls| grep -v k8s
+   29  docker container rm 46f6fc70a94d
+   30  docker container rm -f 46f6fc70a94d
+   31  history | grep container | tail -n 10
+
+/home/docker>
+
