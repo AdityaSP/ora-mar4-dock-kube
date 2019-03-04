@@ -1,1 +1,14 @@
 
+$ export PS1='\n$PWD> '
+
+/home/docker> ps -ef | grep dockerd
+root      2404     1  9 05:12 ?        00:02:39 /usr/bin/dockerd -H tcp://0.0.0.                0:2376 -H unix:///var/run/docker.sock --tlsverify --tlscacert /etc/docker/ca.pem                 --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label pr                ovider=virtualbox --insecure-registry 10.96.0.0/12
+docker   14489 14171  0 05:39 pts/0    00:00:00 grep dockerd
+
+/home/docker> ps -ef | grep localkube
+root      3894     1 27 05:13 ?        00:07:24 /usr/local/bin/localkube --dns-d                omain=cluster.local --node-ip=192.168.99.100 --generate-certs=false --logtostder                r=true --enable-dns=false
+docker   14531 14171  0 05:39 pts/0    00:00:00 grep localkube
+
+/home/docker>
+
+------------------------------------------------------------------------------------------------------------------------
