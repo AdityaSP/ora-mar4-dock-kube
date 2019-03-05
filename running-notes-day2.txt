@@ -555,4 +555,92 @@ IMAGE               CREATED             CREATED BY                              
 
 /home/docker>
 
+-------------------------------------------------------------------
+
+/home/docker> mkdir al-apache
+
+/home/docker> cd al-apache/
+
+/home/docker/al-apache> touch Dockerfile
+
+/home/docker/al-apache> vi Dockerfile
+
+/home/docker/al-apache>
+
+/home/docker/al-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+CMD httpd -D FOREGROUND
+
+/home/docker/al-apache> docker build -f Dockerfile -t al-apache:latest -t al-apache:1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM alpine
+ ---> caf27325b298
+Step 2/4 : RUN apk update
+ ---> Using cache
+ ---> b99174af7479
+Step 3/4 : RUN apk add apache2
+ ---> Using cache
+ ---> cb3628d70fb2
+Step 4/4 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> d58810f44044
+Successfully built d58810f44044
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:1
+
+/home/docker/al-apache> docker image ls al-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+al-apache           1                   d58810f44044        7 days ago          11.7MB
+al-apache           latest              d58810f44044        7 days ago          11.7MB
+
+/home/docker/al-apache> docker build --no-cache -f Dockerfile -t al-apache:latest -t al-apache:1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM alpine
+ ---> caf27325b298
+Step 2/4 : RUN apk update
+ ---> Running in bf931740fb7a
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/community/x86_64/APKINDEX.tar.gz
+v3.9.1-5-gae3d795467 [http://dl-cdn.alpinelinux.org/alpine/v3.9/main]
+v3.9.0-90-gf0b6b9da2f [http://dl-cdn.alpinelinux.org/alpine/v3.9/community]
+OK: 9754 distinct packages available
+ ---> 31a8d66e258c
+Removing intermediate container bf931740fb7a
+Step 3/4 : RUN apk add apache2
+ ---> Running in 8d03f6300d4e
+(1/6) Installing libuuid (2.33-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r5)
+(5/6) Installing pcre (8.42-r1)
+(6/6) Installing apache2 (2.4.38-r2)
+Executing apache2-2.4.38-r2.pre-install
+Executing busybox-1.29.3-r10.trigger
+OK: 9 MiB in 20 packages
+ ---> 669af1e20e19
+Removing intermediate container 8d03f6300d4e
+Step 4/4 : CMD httpd -D FOREGROUND
+ ---> Running in d15219e698c9
+ ---> c68f3c3817b3
+Removing intermediate container d15219e698c9
+Successfully built c68f3c3817b3
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:1
+
+/home/docker/al-apache> docker image ls al-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+al-apache           1                   c68f3c3817b3        8 seconds ago       10.4MB
+al-apache           latest              c68f3c3817b3        8 seconds ago       10.4MB
+
+/home/docker/al-apache> docker image history al-apache:1
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+c68f3c3817b3        28 seconds ago      /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "ht...   0B      
+669af1e20e19        28 seconds ago      /bin/sh -c apk add apache2                      3.59MB  
+31a8d66e258c        31 seconds ago      /bin/sh -c apk update                           1.31MB  
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker/al-apache>
 
