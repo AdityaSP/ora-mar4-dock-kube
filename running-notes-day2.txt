@@ -860,3 +860,842 @@ app                 latest              36d8d73c6780        14 minutes ago      
 
 /home/docker>
 
+-------------------------------------------------------------------------------------------
+/home/docker> mkdir pinger
+
+/home/docker> cd pinger/
+
+/home/docker/pinger> l
+-bash: l: command not found
+
+/home/docker/pinger> vi Dockerfile
+
+/home/docker/pinger>
+
+/home/docker/pinger> docker build -t pinger .
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM alpine
+ ---> caf27325b298
+Step 2/2 : CMD ping -c4 google.com
+ ---> Running in 0c061f9c5015
+ ---> 313dd10c6419
+Removing intermediate container 0c061f9c5015
+Successfully built 313dd10c6419
+Successfully tagged pinger:latest
+
+/home/docker/pinger> docker container run pinger
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=34.166 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=32.384 ms
+64 bytes from 172.217.163.46: seq=2 ttl=53 time=31.130 ms
+64 bytes from 172.217.163.46: seq=3 ttl=53 time=66.456 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 31.130/41.034/66.456 ms
+
+/home/docker/pinger> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                                     CREATED             STATUS                         PORTS                                                NAMES
+7914c7118961        pinger                                                       'ping ..."   28 seconds ago      Exited (0) 23 seconds ago                                                           romantic_brown
+2612d3271c5f        app:1                                                        'httpd..."   45 minutes ago      Up 45 minutes                  0.0.0.0:9091->8                                      zealous_wiles
+3a103af4f886        669af1e20e19                                                              About an hour ago   Exited (0) About an hour ago                                                        happy_wing
+51a3de209869        67e8b76e9d3e                                                OREGROUND"    5 hours ago         Up 5 hours                     0.0.0.0:9090->8                                      admiring_swirles
+e8646a44ec5b        67e8b76e9d3e                                                              5 hours ago         Exited (0) 5 hours ago                                                              affectionate_ardinghelli
+ee5a22ba1a6f        67e8b76e9d3e                                                              5 hours ago         Exited (0) 5 hours ago                                                              hungry_almeida
+55ba19412ad6        67e8b76e9d3e                                                              5 hours ago         Exited (0) 5 hours ago                                                              adoring_euclid
+
+/home/docker/pinger> docker container run pinger
+
+/home/docker/pinger> docker container run --rm pinger
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=33.952 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=37.108 ms
+64 bytes from 172.217.163.46: seq=2 ttl=53 time=32.649 ms
+64 bytes from 172.217.163.46: seq=3 ttl=53 time=36.273 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 32.649/34.995/37.108 ms
+
+/home/docker/pinger> #docker container run --rm pinger ping -c4 yahoo.com
+
+/home/docker/pinger> cat Dockerfile
+FROM alpine
+CMD ping -c4 google.com
+
+/home/docker/pinger> docker container run --rm pinger ping -c4 yahoo.com
+PING yahoo.com (72.30.35.9): 56 data bytes
+64 bytes from 72.30.35.9: seq=0 ttl=46 time=243.651 ms
+64 bytes from 72.30.35.9: seq=1 ttl=46 time=239.966 ms
+64 bytes from 72.30.35.9: seq=2 ttl=46 time=231.348 ms
+64 bytes from 72.30.35.9: seq=3 ttl=46 time=244.044 ms
+
+--- yahoo.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 231.348/239.752/244.044 ms
+
+/home/docker/pinger> #docker container run --rm pinger yahoo.com
+
+/home/docker/pinger> vi Dockerfile
+
+/home/docker/pinger>
+
+/home/docker/pinger> docker build -t pinger .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> caf27325b298
+Step 2/3 : ENTRYPOINT ping -c4
+ ---> Running in d9f62bf0f592
+ ---> 4c7a1152ca24
+Removing intermediate container d9f62bf0f592
+Step 3/3 : CMD google.com
+ ---> Running in 0c99de9c7204
+ ---> 077a9de659f0
+Removing intermediate container 0c99de9c7204
+Successfully built 077a9de659f0
+Successfully tagged pinger:latest
+
+/home/docker/pinger> docker container run --rm pinger
+BusyBox v1.29.3 (2019-01-24 07:45:07 UTC) multi-call binary.
+
+Usage: ping [OPTIONS] HOST
+
+Send ICMP ECHO_REQUEST packets to network hosts
+
+        -4,-6           Force IP or IPv6 name resolution
+        -c CNT          Send only CNT pings
+        -s SIZE         Send SIZE data bytes in packets (default 56)
+        -A              Ping as soon as reply is recevied
+        -t TTL          Set TTL
+        -I IFACE/IP     Source interface or IP address
+        -W SEC          Seconds to wait for the first response (default 10)
+                        (after all -c CNT packets are sent)
+        -w SEC          Seconds until ping exits (default:infinite)
+                        (can exit earlier with -c CNT)
+        -q              Quiet, only display output at start
+                        and when finished
+        -p HEXBYTE      Pattern to use for payload
+
+/home/docker/pinger> vi Dockerfile
+
+/home/docker/pinger>
+
+/home/docker/pinger> docker build -t pinger .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> caf27325b298
+Step 2/3 : ENTRYPOINT ping -c4
+ ---> Running in 079eabeb2f4e
+ ---> b431c7cc3f41
+Removing intermediate container 079eabeb2f4e
+Step 3/3 : CMD google.com
+ ---> Running in b41ae7584209
+ ---> e2f5c269c85f
+Removing intermediate container b41ae7584209
+Successfully built e2f5c269c85f
+Successfully tagged pinger:latest
+
+/home/docker/pinger> docker container run --rm pinger
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=35.303 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=34.216 ms
+64 bytes from 172.217.163.46: seq=2 ttl=53 time=34.189 ms
+64 bytes from 172.217.163.46: seq=3 ttl=53 time=33.745 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 33.745/34.363/35.303 ms
+
+/home/docker/pinger> cat Dockerfile
+FROM alpine
+ENTRYPOINT ["ping", "-c4"]
+CMD ["google.com"]
+
+/home/docker/pinger> docker container run --rm pinger yahoo.com
+PING yahoo.com (98.138.219.232): 56 data bytes
+64 bytes from 98.138.219.232: seq=0 ttl=46 time=248.047 ms
+64 bytes from 98.138.219.232: seq=1 ttl=46 time=238.989 ms
+64 bytes from 98.138.219.232: seq=2 ttl=46 time=253.596 ms
+64 bytes from 98.138.219.232: seq=3 ttl=46 time=246.199 ms
+
+--- yahoo.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 238.989/246.707/253.596 ms
+
+/home/docker/pinger> docker container run --rm pinger oracle.com
+PING oracle.com (137.254.120.50): 56 data bytes
+64 bytes from 137.254.120.50: seq=0 ttl=240 time=267.381 ms
+64 bytes from 137.254.120.50: seq=1 ttl=240 time=264.379 ms
+64 bytes from 137.254.120.50: seq=2 ttl=240 time=263.628 ms
+64 bytes from 137.254.120.50: seq=3 ttl=240 time=263.160 ms
+
+--- oracle.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 263.160/264.637/267.381 ms
+
+/home/docker/pinger> cat Dockerfile
+FROM alpine
+ENTRYPOINT ["ping", "-c4"]
+CMD ["google.com"]
+
+/home/docker/pinger> vi Dockerfile
+
+/home/docker/pinger> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+881bd08c0b08        6 hours ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B
+<missing>           6 hours ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B
+<missing>           6 hours ago         /bin/sh -c #(nop)  EXPOSE 80                    0B
+<missing>           6 hours ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B
+<missing>           6 hours ago         /bin/sh -c set -x  && apt-get update  && a...   54MB
+<missing>           6 hours ago         /bin/sh -c #(nop)  ENV NJS_VERSION=1.15.9....   0B
+<missing>           6 hours ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.15....   0B
+<missing>           6 hours ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B
+<missing>           11 hours ago        /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>           11 hours ago        /bin/sh -c #(nop) ADD file:5ea7dfe8c8bc87e...   55.3MB
+
+/home/docker/pinger> docker container run --rm pinger yahoo.com
+PING yahoo.com (98.137.246.7): 56 data bytes
+64 bytes from 98.137.246.7: seq=0 ttl=46 time=264.359 ms
+64 bytes from 98.137.246.7: seq=1 ttl=46 time=279.091 ms
+64 bytes from 98.137.246.7: seq=2 ttl=46 time=269.688 ms
+64 bytes from 98.137.246.7: seq=3 ttl=46 time=330.780 ms
+
+--- yahoo.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 264.359/285.979/330.780 ms
+
+/home/docker/pinger> cd ..
+
+/home/docker> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+7914c7118961d7c72995759a8c051454af978ed2846681db0b7eccacf5c04d86
+3a103af4f88607945a79e59279a18f2b800b03c580caf04bb87f603d32d48b9c
+e8646a44ec5bbeefcc001a96161f907ca541889b7c7a26bf338a4259a71bfe1f
+ee5a22ba1a6f216680ed19451c97ecf954b696b771144814b215316a8f703827
+55ba19412ad663c7ef33328417e66609614ba2574be32dc73e3becb6967fa154
+
+Total reclaimed space: 2.052kB
+
+/home/docker>
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+2612d3271c5f        app:1                                                            "/bin/sh -c 'httpd..."   About an hour ago   Up About an hour    0.0.0.0:9091->80/tcp                                                 zealous_wiles
+51a3de209869        67e8b76e9d3e                                                     "httpd -D FOREGROUND"    5 hours ago         Up 5 hours          0.0.0.0:9090->80/tcp                                                 admiring_swirles
+
+/home/docker> docker container exec 51a3de209869 cat /etc/apache2/httd.conf
+cat: can't open '/etc/apache2/httd.conf': No such file or directory
+
+/home/docker> docker container exec 51a3de209869 cat /etc/apache2/httpd.conf
+#
+# This is the main Apache HTTP server configuration file.  It contains the
+# configuration directives that give the server its instructions.
+# See <URL:http://httpd.apache.org/docs/2.4/> for detailed information.
+# In particular, see
+# <URL:http://httpd.apache.org/docs/2.4/mod/directives.html>
+# for a discussion of each configuration directive.
+#
+# Do NOT simply read the instructions in here without understanding
+# what they do.  They're here only as hints or reminders.  If you are unsure
+# consult the online docs. You have been warned.
+#
+# Configuration and logfile names: If the filenames you specify for many
+# of the server's control files begin with "/" (or "drive:/" for Win32), the
+# server will use that explicit path.  If the filenames do *not* begin
+# with "/", the value of ServerRoot is prepended -- so "logs/access_log"
+# with ServerRoot set to "/usr/local/apache2" will be interpreted by the
+# server as "/usr/local/apache2/logs/access_log", whereas "/logs/access_log"
+# will be interpreted as '/logs/access_log'.
+
+#
+# ServerTokens
+# This directive configures what you return as the Server HTTP response
+# Header. The default is 'Full' which sends information about the OS-Type
+# and compiled in modules.
+# Set to one of:  Full | OS | Minor | Minimal | Major | Prod
+# where Full conveys the most information, and Prod the least.
+#
+ServerTokens OS
+
+#
+# ServerRoot: The top of the directory tree under which the server's
+# configuration, error, and log files are kept.
+#
+# Do not add a slash at the end of the directory path.  If you point
+# ServerRoot at a non-local disk, be sure to specify a local disk on the
+# Mutex directive, if file-based mutexes are used.  If you wish to share the
+# same ServerRoot for multiple httpd daemons, you will need to change at
+# least PidFile.
+#
+ServerRoot /var/www
+
+#
+# Mutex: Allows you to set the mutex mechanism and mutex file directory
+# for individual mutexes, or change the global defaults
+#
+# Uncomment and change the directory if mutexes are file-based and the default
+# mutex file directory is not on a local disk or is not appropriate for some
+# other reason.
+#
+# Mutex default:/run/apache2
+
+#
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# ports, instead of the default. See also the <VirtualHost>
+# directive.
+#
+# Change this to Listen on specific IP addresses as shown below to
+# prevent Apache from glomming onto all bound IP addresses.
+#
+#Listen 12.34.56.78:80
+Listen 80
+
+#
+# Dynamic Shared Object (DSO) Support
+#
+# To be able to use the functionality of a module which was built as a DSO you
+# have to place corresponding `LoadModule' lines at this location so the
+# directives contained in it are actually available _before_ they are used.
+# Statically compiled modules (those listed by `httpd -l') do not need
+# to be loaded here.
+#
+# Example:
+# LoadModule foo_module modules/mod_foo.so
+#
+#LoadModule mpm_event_module modules/mod_mpm_event.so
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+#LoadModule mpm_worker_module modules/mod_mpm_worker.so
+LoadModule authn_file_module modules/mod_authn_file.so
+#LoadModule authn_dbm_module modules/mod_authn_dbm.so
+#LoadModule authn_anon_module modules/mod_authn_anon.so
+#LoadModule authn_dbd_module modules/mod_authn_dbd.so
+#LoadModule authn_socache_module modules/mod_authn_socache.so
+LoadModule authn_core_module modules/mod_authn_core.so
+LoadModule authz_host_module modules/mod_authz_host.so
+LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
+LoadModule authz_user_module modules/mod_authz_user.so
+#LoadModule authz_dbm_module modules/mod_authz_dbm.so
+#LoadModule authz_owner_module modules/mod_authz_owner.so
+#LoadModule authz_dbd_module modules/mod_authz_dbd.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule access_compat_module modules/mod_access_compat.so
+LoadModule auth_basic_module modules/mod_auth_basic.so
+#LoadModule auth_form_module modules/mod_auth_form.so
+#LoadModule auth_digest_module modules/mod_auth_digest.so
+#LoadModule allowmethods_module modules/mod_allowmethods.so
+#LoadModule file_cache_module modules/mod_file_cache.so
+#LoadModule cache_module modules/mod_cache.so
+#LoadModule cache_disk_module modules/mod_cache_disk.so
+#LoadModule cache_socache_module modules/mod_cache_socache.so
+#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
+#LoadModule socache_dbm_module modules/mod_socache_dbm.so
+#LoadModule socache_memcache_module modules/mod_socache_memcache.so
+#LoadModule watchdog_module modules/mod_watchdog.so
+#LoadModule macro_module modules/mod_macro.so
+#LoadModule dbd_module modules/mod_dbd.so
+#LoadModule dumpio_module modules/mod_dumpio.so
+#LoadModule echo_module modules/mod_echo.so
+#LoadModule buffer_module modules/mod_buffer.so
+#LoadModule data_module modules/mod_data.so
+#LoadModule ratelimit_module modules/mod_ratelimit.so
+LoadModule reqtimeout_module modules/mod_reqtimeout.so
+#LoadModule ext_filter_module modules/mod_ext_filter.so
+#LoadModule request_module modules/mod_request.so
+#LoadModule include_module modules/mod_include.so
+LoadModule filter_module modules/mod_filter.so
+#LoadModule reflector_module modules/mod_reflector.so
+#LoadModule substitute_module modules/mod_substitute.so
+#LoadModule sed_module modules/mod_sed.so
+#LoadModule charset_lite_module modules/mod_charset_lite.so
+#LoadModule deflate_module modules/mod_deflate.so
+LoadModule mime_module modules/mod_mime.so
+LoadModule log_config_module modules/mod_log_config.so
+#LoadModule log_debug_module modules/mod_log_debug.so
+#LoadModule log_forensic_module modules/mod_log_forensic.so
+#LoadModule logio_module modules/mod_logio.so
+LoadModule env_module modules/mod_env.so
+#LoadModule mime_magic_module modules/mod_mime_magic.so
+#LoadModule expires_module modules/mod_expires.so
+LoadModule headers_module modules/mod_headers.so
+#LoadModule usertrack_module modules/mod_usertrack.so
+#LoadModule unique_id_module modules/mod_unique_id.so
+LoadModule setenvif_module modules/mod_setenvif.so
+LoadModule version_module modules/mod_version.so
+#LoadModule remoteip_module modules/mod_remoteip.so
+#LoadModule session_module modules/mod_session.so
+#LoadModule session_cookie_module modules/mod_session_cookie.so
+#LoadModule session_crypto_module modules/mod_session_crypto.so
+#LoadModule session_dbd_module modules/mod_session_dbd.so
+#LoadModule slotmem_shm_module modules/mod_slotmem_shm.so
+#LoadModule slotmem_plain_module modules/mod_slotmem_plain.so
+#LoadModule dialup_module modules/mod_dialup.so
+#LoadModule http2_module modules/mod_http2.so
+LoadModule unixd_module modules/mod_unixd.so
+#LoadModule heartbeat_module modules/mod_heartbeat.so
+#LoadModule heartmonitor_module modules/mod_heartmonitor.so
+LoadModule status_module modules/mod_status.so
+LoadModule autoindex_module modules/mod_autoindex.so
+#LoadModule asis_module modules/mod_asis.so
+#LoadModule info_module modules/mod_info.so
+#LoadModule suexec_module modules/mod_suexec.so
+<IfModule !mpm_prefork_module>
+        #LoadModule cgid_module modules/mod_cgid.so
+</IfModule>
+<IfModule mpm_prefork_module>
+        #LoadModule cgi_module modules/mod_cgi.so
+</IfModule>
+#LoadModule vhost_alias_module modules/mod_vhost_alias.so
+#LoadModule negotiation_module modules/mod_negotiation.so
+LoadModule dir_module modules/mod_dir.so
+#LoadModule actions_module modules/mod_actions.so
+#LoadModule speling_module modules/mod_speling.so
+#LoadModule userdir_module modules/mod_userdir.so
+LoadModule alias_module modules/mod_alias.so
+#LoadModule rewrite_module modules/mod_rewrite.so
+
+LoadModule negotiation_module modules/mod_negotiation.so
+
+<IfModule unixd_module>
+#
+# If you wish httpd to run as a different user or group, you must run
+# httpd as root initially and it will switch.
+#
+# User/Group: The name (or #number) of the user/group to run httpd as.
+# It is usually good practice to create a dedicated user and group for
+# running httpd, as with most system services.
+#
+User apache
+Group apache
+
+</IfModule>
+
+# 'Main' server configuration
+#
+# The directives in this section set up the values used by the 'main'
+# server, which responds to any requests that aren't handled by a
+# <VirtualHost> definition.  These values also provide defaults for
+# any <VirtualHost> containers you may define later in the file.
+#
+# All of these directives may appear inside <VirtualHost> containers,
+# in which case these default settings will be overridden for the
+# virtual host being defined.
+#
+
+#
+# ServerAdmin: Your address, where problems with the server should be
+# e-mailed.  This address appears on some server-generated pages, such
+# as error documents.  e.g. admin@your-domain.com
+#
+ServerAdmin you@example.com
+
+#
+# Optionally add a line containing the server version and virtual host
+# name to server-generated pages (internal error documents, FTP directory
+# listings, mod_status and mod_info output etc., but not CGI generated
+# documents or custom error documents).
+# Set to "EMail" to also include a mailto: link to the ServerAdmin.
+# Set to one of:  On | Off | EMail
+#
+ServerSignature On
+
+#
+# ServerName gives the name and port that the server uses to identify itself.
+# This can often be determined automatically, but we recommend you specify
+# it explicitly to prevent problems during startup.
+#
+# If your host doesn't have a registered DNS name, enter its IP address here.
+#
+#ServerName www.example.com:80
+
+#
+# Deny access to the entirety of your server's filesystem. You must
+# explicitly permit access to web content directories in other
+# <Directory> blocks below.
+#
+<Directory />
+    AllowOverride none
+    Require all denied
+</Directory>
+
+#
+# Note that from this point forward you must specifically allow
+# particular features to be enabled - so if something's not working as
+# you might expect, make sure that you have specifically enabled it
+# below.
+#
+
+#
+# DocumentRoot: The directory out of which you will serve your
+# documents. By default, all requests are taken from this directory, but
+# symbolic links and aliases may be used to point to other locations.
+#
+DocumentRoot "/var/www/localhost/htdocs"
+<Directory "/var/www/localhost/htdocs">
+    #
+    # Possible values for the Options directive are "None", "All",
+    # or any combination of:
+    #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+    #
+    # Note that "MultiViews" must be named *explicitly* --- "Options All"
+    # doesn't give it to you.
+    #
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.4/mod/core.html#options
+    # for more information.
+    #
+    Options Indexes FollowSymLinks
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be "All", "None", or any combination of the keywords:
+    #   AllowOverride FileInfo AuthConfig Limit
+    #
+    AllowOverride None
+
+    #
+    # Controls who can get stuff from this server.
+    #
+    Require all granted
+</Directory>
+
+#
+# DirectoryIndex: sets the file that Apache will serve if a directory
+# is requested.
+#
+<IfModule dir_module>
+    DirectoryIndex index.html
+</IfModule>
+
+#
+# The following lines prevent .htaccess and .htpasswd files from being
+# viewed by Web clients.
+#
+<Files ".ht*">
+    Require all denied
+</Files>
+
+#
+# ErrorLog: The location of the error log file.
+# If you do not specify an ErrorLog directive within a <VirtualHost>
+# container, error messages relating to that virtual host will be
+# logged here.  If you *do* define an error logfile for a <VirtualHost>
+# container, that host's errors will be logged there and not here.
+#
+ErrorLog logs/error.log
+
+#
+# LogLevel: Control the number of messages logged to the error_log.
+# Possible values include: debug, info, notice, warn, error, crit,
+# alert, emerg.
+#
+LogLevel warn
+
+<IfModule log_config_module>
+    #
+    # The following directives define some format nicknames for use with
+    # a CustomLog directive (see below).
+    #
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+    <IfModule logio_module>
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    </IfModule>
+
+    #
+    # The location and format of the access logfile (Common Logfile Format).
+    # If you do not define any access logfiles within a <VirtualHost>
+    # container, they will be logged here.  Contrariwise, if you *do*
+    # define per-<VirtualHost> access logfiles, transactions will be
+    # logged therein and *not* in this file.
+    #
+    #CustomLog logs/access.log common
+
+    #
+    # If you prefer a logfile with access, agent, and referer information
+    # (Combined Logfile Format) you can use the following directive.
+    #
+    CustomLog logs/access.log combined
+</IfModule>
+
+<IfModule alias_module>
+    #
+    # Redirect: Allows you to tell clients about documents that used to
+    # exist in your server's namespace, but do not anymore. The client
+    # will make a new request for the document at its new location.
+    # Example:
+    # Redirect permanent /foo http://www.example.com/bar
+
+    #
+    # Alias: Maps web paths into filesystem paths and is used to
+    # access content that does not live under the DocumentRoot.
+    # Example:
+    # Alias /webpath /full/filesystem/path
+    #
+    # If you include a trailing / on /webpath then the server will
+    # require it to be present in the URL.  You will also likely
+    # need to provide a <Directory> section to allow access to
+    # the filesystem path.
+
+    #
+    # ScriptAlias: This controls which directories contain server scripts.
+    # ScriptAliases are essentially the same as Aliases, except that
+    # documents in the target directory are treated as applications and
+    # run by the server when requested rather than as documents sent to the
+    # client.  The same rules about trailing "/" apply to ScriptAlias
+    # directives as to Alias.
+    #
+    ScriptAlias /cgi-bin/ "/var/www/localhost/cgi-bin/"
+
+</IfModule>
+
+<IfModule cgid_module>
+    #
+    # ScriptSock: On threaded servers, designate the path to the UNIX
+    # socket used to communicate with the CGI daemon of mod_cgid.
+    #
+    #Scriptsock cgisock
+</IfModule>
+
+#
+# "/var/www/localhost/cgi-bin" should be changed to whatever your ScriptAliased
+# CGI directory exists, if you have that configured.
+#
+<Directory "/var/www/localhost/cgi-bin">
+    AllowOverride None
+    Options None
+    Require all granted
+</Directory>
+
+<IfModule headers_module>
+    #
+    # Avoid passing HTTP_PROXY environment to CGI's on this or any proxied
+    # backend servers which have lingering "httpoxy" defects.
+    # 'Proxy' request header is undefined by the IETF, not listed by IANA
+    #
+    RequestHeader unset Proxy early
+</IfModule>
+
+<IfModule mime_module>
+    #
+    # TypesConfig points to the file containing the list of mappings from
+    # filename extension to MIME-type.
+    #
+    TypesConfig /etc/apache2/mime.types
+
+    #
+    # AddType allows you to add to or override the MIME configuration
+    # file specified in TypesConfig for specific file types.
+    #
+    #AddType application/x-gzip .tgz
+    #
+    # AddEncoding allows you to have certain browsers uncompress
+    # information on the fly. Note: Not all browsers support this.
+    #
+    #AddEncoding x-compress .Z
+    #AddEncoding x-gzip .gz .tgz
+    #
+    # If the AddEncoding directives above are commented-out, then you
+    # probably should define those extensions to indicate media types:
+    #
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+
+    #
+    # AddHandler allows you to map certain file extensions to "handlers":
+    # actions unrelated to filetype. These can be either built into the server
+    # or added with the Action directive (see below)
+    #
+    # To use CGI scripts outside of ScriptAliased directories:
+    # (You will also need to add "ExecCGI" to the "Options" directive.)
+    #
+    #AddHandler cgi-script .cgi
+
+    # For type maps (negotiated resources):
+    #AddHandler type-map var
+
+    #
+    # Filters allow you to process content before it is sent to the client.
+    #
+    # To parse .shtml files for server-side includes (SSI):
+    # (You will also need to add "Includes" to the "Options" directive.)
+    #
+    #AddType text/html .shtml
+    #AddOutputFilter INCLUDES .shtml
+</IfModule>
+
+#
+# The mod_mime_magic module allows the server to use various hints from the
+# contents of the file itself to determine its type.  The MIMEMagicFile
+# directive tells the module where the hint definitions are located.
+#
+<IfModule mime_magic_module>
+    MIMEMagicFile /etc/apache2/magic
+</IfModule>
+
+#
+# Customizable error responses come in three flavors:
+# 1) plain text 2) local redirects 3) external redirects
+#
+# Some examples:
+#ErrorDocument 500 "The server made a boo boo."
+#ErrorDocument 404 /missing.html
+#ErrorDocument 404 "/cgi-bin/missing_handler.pl"
+#ErrorDocument 402 http://www.example.com/subscription_info.html
+#
+
+#
+# MaxRanges: Maximum number of Ranges in a request before
+# returning the entire resource, or one of the special
+# values 'default', 'none' or 'unlimited'.
+# Default setting is to accept 200 Ranges.
+#MaxRanges unlimited
+
+#
+# EnableMMAP and EnableSendfile: On systems that support it,
+# memory-mapping or the sendfile syscall may be used to deliver
+# files.  This usually improves server performance, but must
+# be turned off when serving from networked-mounted
+# filesystems or if support for these functions is otherwise
+# broken on your system.
+# Defaults: EnableMMAP On, EnableSendfile Off
+#
+#EnableMMAP off
+#EnableSendfile on
+
+# Load config files from the config directory "/etc/apache2/conf.d".
+#
+IncludeOptional /etc/apache2/conf.d/*.conf
+
+/home/docker>
+
+/home/docker> docker container exec -it 51a3de209869 sh
+/ # cd /etc/apache2/
+/etc/apache2 # ls
+conf.d      httpd.conf  magic       mime.types
+/etc/apache2 # grep Listen httpd.conf
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+#Listen 12.34.56.78:80
+Listen 80
+/etc/apache2 # sed -i "s/Listen 80/Listen 8080/" httpd.conf
+/etc/apache2 # grep Listen httpd.conf
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+#Listen 12.34.56.78:80
+Listen 8080
+/etc/apache2 # exit
+
+/home/docker>
+
+/home/docker> cd al-apache/
+
+/home/docker/al-apache> ls
+Dockerfile
+
+/home/docker/al-apache> vi Dockerfile
+
+/home/docker/al-apache> ls
+Dockerfile
+
+/home/docker/al-apache> vi docker-entrypoint.sh
+
+/home/docker/al-apache>
+
+/home/docker/al-apache> cat Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN touch /tmp/f1.txt
+RUN apk add apache2
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+
+/home/docker/al-apache> cat docker-entrypoint.sh
+#!/bin/sh
+
+sed -i "s/Listen 80/Listen 8080/" /etc/apache2/httpd.conf
+# $@ --> array of command line arguments
+exec "$@"
+
+/home/docker/al-apache> ls
+Dockerfile  docker-entrypoint.sh
+
+/home/docker/al-apache> vi Dockerfile
+
+/home/docker/al-apache> cat docker-entrypoint.sh
+#!/bin/sh
+
+sed -i "s/Listen 80/Listen 8080/" /etc/apache2/httpd.conf
+# $@ --> array of command line arguments
+exec "$@"
+
+/home/docker/al-apache> vi docker-entrypoint.sh
+
+/home/docker/al-apache> chmod +x docker-entrypoint.sh
+
+/home/docker/al-apache> ./docker-entrypoint.sh one two three
+./docker-entrypoint.sh: line 5: exec: one: not found
+
+/home/docker/al-apache> ./docker-entrypoint.sh echo hello
+hello
+
+/home/docker/al-apache> vi docker-entrypoint.sh
+
+/home/docker/al-apache> docker image build -t al-apache:latest -t al-apache:2 al-apache
+unable to prepare context: path "al-apache" not found
+
+/home/docker/al-apache> docker image build -t al-apache:latest -t al-apache:2 .
+Sending build context to Docker daemon  3.072kB
+Step 1/7 : FROM alpine:3.9
+ ---> caf27325b298
+Step 2/7 : RUN apk update
+ ---> Using cache
+ ---> 12129d60f758
+Step 3/7 : RUN apk add apache2
+ ---> Running in 1fd18d81e541
+(1/6) Installing libuuid (2.33-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r5)
+(5/6) Installing pcre (8.42-r1)
+(6/6) Installing apache2 (2.4.38-r2)
+Executing apache2-2.4.38-r2.pre-install
+Executing busybox-1.29.3-r10.trigger
+OK: 9 MiB in 20 packages
+ ---> 39fc402bb681
+Removing intermediate container 1fd18d81e541
+Step 4/7 : COPY docker-entrypoint.sh /bin
+ ---> e78b431b27e8
+Step 5/7 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Running in ab39aad23043
+ ---> 20a81577308e
+Removing intermediate container ab39aad23043
+Step 6/7 : ENTRYPOINT docker-entrypoint.sh
+ ---> Running in 1edbc9ee57f6
+ ---> dc4d9ff907b8
+Removing intermediate container 1edbc9ee57f6
+Step 7/7 : CMD httpd -D FOREGROUND
+ ---> Running in 54fbc15e8f4f
+ ---> 108ef67d53f3
+Removing intermediate container 54fbc15e8f4f
+Successfully built 108ef67d53f3
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:2
+
+/home/docker/al-apache> docker container run -d -p 9099:8080 al-apache:2
+216b5465d6ba44481785c348f23bf8c99b8126f91d1dc41aa68b9165d380d536
+
+/home/docker/al-apache> docker container exec 216b5465d grep Listen /etc/apache2/httpd.conf
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+#Listen 12.34.56.78:80
+Listen 8080
+
+/home/docker/al-apache>
+
+
