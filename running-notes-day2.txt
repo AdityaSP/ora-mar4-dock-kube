@@ -643,4 +643,220 @@ caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]      
 <missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
 
 /home/docker/al-apache>
+-----------------------------------------------------------------------------------------------------------------------------------
+/home/docker/al-apache> docker image build --pull -t al-apache:latest -t al-apache:1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/5 : FROM alpine
+latest: Pulling from library/alpine
+Digest: sha256:b3dbf31b77fd99d9c08f780ce6f5282aba076d70a513a8be859d8d3a4d0c92b8
+Status: Image is up to date for alpine:latest
+ ---> caf27325b298
+Step 2/5 : RUN apk update
+ ---> Using cache
+ ---> 12129d60f758
+Step 3/5 : RUN touch /tmp/f1.txt
+ ---> Using cache
+ ---> 0ef4a7bceb92
+Step 4/5 : RUN apk add apache2
+ ---> Using cache
+ ---> ba29b354cef7
+Step 5/5 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> a8045566cfcb
+Successfully built a8045566cfcb
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:1
+
+/home/docker/al-apache> docker image ls -a | grep 0ef4a7bceb92
+<none>                                                           <none>              0ef4a7bceb92        3 minutes ago       6.84MB
+
+/home/docker/al-apache> cd ..
+
+/home/docker> docker image build --pull -t al-apache:latest -t al-apache:1 al-apache
+Sending build context to Docker daemon  2.048kB
+Step 1/5 : FROM alpine
+latest: Pulling from library/alpine
+Digest: sha256:b3dbf31b77fd99d9c08f780ce6f5282aba076d70a513a8be859d8d3a4d0c92b8
+Status: Image is up to date for alpine:latest
+ ---> caf27325b298
+Step 2/5 : RUN apk update
+ ---> Using cache
+ ---> 12129d60f758
+Step 3/5 : RUN touch /tmp/f1.txt
+ ---> Using cache
+ ---> 0ef4a7bceb92
+Step 4/5 : RUN apk add apache2
+ ---> Using cache
+ ---> ba29b354cef7
+Step 5/5 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> a8045566cfcb
+Successfully built a8045566cfcb
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:1
+
+/home/docker> cd al-apache/
+
+/home/docker/al-apache> ls
+Dockerfile
+
+/home/docker/al-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN touch /tmp/f1.txt
+RUN apk add apache2
+CMD httpd -D FOREGROUND
+
+/home/docker/al-apache> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+3a103af4f886        669af1e20e19                                                     "sh"                     19 minutes ago      Exited (0) 19 minutes ago                                                                        happy_wing
+51a3de209869        67e8b76e9d3e                                                     "httpd -D FOREGROUND"    4 hours ago         Up 4 hours                  0.0.0.0:9090->80/tcp                                                 admiring_swirles
+e8646a44ec5b        67e8b76e9d3e                                                     "sh"                     4 hours ago         Exited (0) 4 hours ago                                                                           affectionate_ardinghelli
+ee5a22ba1a6f        67e8b76e9d3e                                                     "httpd"                  4 hours ago         Exited (0) 4 hours ago                                                                           hungry_almeida
+55ba19412ad6        67e8b76e9d3e                                                     "sh"                     4 hours ago         Exited (0) 4 hours ago                                                                           adoring_euclid
+
+/home/docker/al-apache> docker container exec 51a3de209869 ls /var/www/localhost/htdocs
+index.html
+
+/home/docker/al-apache> docker container exec 51a3de209869 cat /var/www/localhost/htdocs/index.html
+<html><body><h1>It works!</h1></body></html>
+
+/home/docker/al-apache> vi mypage.html
+
+/home/docker/al-apache> ls
+Dockerfile  mypage.html
+
+/home/docker/al-apache> cd ..
+
+/home/docker> mkdir app
+
+/home/docker> cd app
+
+/home/docker/app> ls
+
+/home/docker/app> vi Dockerfile
+
+/home/docker/app> ls
+Dockerfile
+
+/home/docker/app> mv ../al-apache/mypage.html .
+
+/home/docker/app> ls
+Dockerfile  mypage.html
+
+/home/docker/app>
+
+/home/docker/app> cat Dockerfile
+FROM al-apache
+COPY mypage.html /var/www/localhost/htdocs
+
+/home/docker/app> cat mypage.html
+<h1>my code</h1>
+
+/home/docker/app> rm mypage.html
+
+/home/docker/app> ls
+Dockerfile
+
+/home/docker/app> docker image build -t app:latest -t app:1 .
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM al-apache
+ ---> a8045566cfcb
+Step 2/2 : COPY mypage.html /var/www/localhost/htdocs
+COPY failed: stat /var/lib/docker/tmp/docker-builder283466112/mypage.html: no such file or directory
+
+/home/docker/app> cat > mypage.html
+<h1>My Code</h1>
+^C
+
+/home/docker/app>
+
+/home/docker/app>
+
+/home/docker/app> cat Dockerfile
+FROM al-apache
+COPY mypage.html /var/www/localhost/htdocs
+
+/home/docker/app> cat mypage.html
+<h1>My Code</h1>
+
+/home/docker/app> docker image build -t app:latest -t app:1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM al-apache
+ ---> a8045566cfcb
+Step 2/2 : COPY mypage.html /var/www/localhost/htdocs
+ ---> 36d8d73c6780
+Successfully built 36d8d73c6780
+Successfully tagged app:latest
+Successfully tagged app:1
+
+/home/docker/app> docker image history alpine
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker/app> docker image history al-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+a8045566cfcb        14 minutes ago      /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "ht...   0B      
+ba29b354cef7        14 minutes ago      /bin/sh -c apk add apache2                      3.59MB  
+0ef4a7bceb92        14 minutes ago      /bin/sh -c touch /tmp/f1.txt                    0B      
+12129d60f758        14 minutes ago      /bin/sh -c apk update                           1.31MB  
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker/app> docker image history app
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+36d8d73c6780        30 seconds ago      /bin/sh -c #(nop) COPY file:6bd8fbf89ff65f...   17B     
+a8045566cfcb        15 minutes ago      /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "ht...   0B      
+ba29b354cef7        15 minutes ago      /bin/sh -c apk add apache2                      3.59MB  
+0ef4a7bceb92        15 minutes ago      /bin/sh -c touch /tmp/f1.txt                    0B      
+12129d60f758        15 minutes ago      /bin/sh -c apk update                           1.31MB  
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker/app> #docker inspect 36d8d73c6780
+
+/home/docker/app> #docker inspect 51a3de209869
+
+/home/docker/app> #docker image inspect 36d8d73c6780
+
+/home/docker/app>
+
+/home/docker/app> #docker image build -t app:latest -t app:2 .
+
+/home/docker/app> cat Dockerfile
+FROM al-apache
+COPY mypage.html /var/www/localhost/htdocs
+
+/home/docker/app> cd ..
+
+/home/docker> cd al-apache/
+
+/home/docker/al-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN touch /tmp/f1.txt
+RUN apk add apache2
+CMD httpd -D FOREGROUND
+
+/home/docker/al-apache> vi Dockerfile
+
+/home/docker/al-apache> cat Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN touch /tmp/f1.txt
+RUN apk add apache2
+CMD httpd -D FOREGROUND
+
+/home/docker/al-apache> cd ..
+
+/home/docker> docker image ls app
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+app                 1                   36d8d73c6780        14 minutes ago      10.4MB
+app                 latest              36d8d73c6780        14 minutes ago      10.4MB
+
+/home/docker> docker container run -d -p 9091:80 app:1
+2612d3271c5fdeeea251b76e93e848d37bc5754afc48d101d4df70278bd15002
+
+/home/docker>
 
