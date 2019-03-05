@@ -264,5 +264,295 @@ CONTAINER ID        IMAGE                                                       
 
 /home/docker>
 
+----------------------------------------------------------------------------------------------------------
+/home/docker> docker image ls al-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+al-apache           latest              67e8b76e9d3e        About an hour ago   10.4MB
+
+/home/docker> docker image ls | grep adityaprabhakara
+adityaprabhakara/app                                             1                   b2d4db48377b        7 days ago          11.7MB
+adityaprabhakara/alap                                            latest              d58810f44044        7 days ago          11.7MB
+
+/home/docker> docker image rm adityaprabhakara/app adityaprabhakara/alap
+Untagged: adityaprabhakara/alap:latest
+Untagged: adityaprabhakara/alap@sha256:c9cba1e559bccc7f9d53f8b9561fc41c6b25fe30ec684d41353111c4b1b60994
+Error: No such image: adityaprabhakara/app
+
+/home/docker> docker image rm adityaprabhakara/app adityaprabhakara/alap:1
+Error: No such image: adityaprabhakara/app
+Error: No such image: adityaprabhakara/alap:1
+
+/home/docker> docker image ls | grep al-ap
+al-apache                                                        latest              67e8b76e9d3e        About an hour ago   10.4MB
+al-ap                                                            latest              45cd21167d6a        2 weeks ago         10.4MB
+
+/home/docker> docker image rm -f al-ap
+Untagged: al-ap:latest
+Deleted: sha256:45cd21167d6a72931fae337d2c26724ece281333a64b7d3b6c45c8b401894f2b
+Deleted: sha256:adb7e92f1b4eca792e21d6482fff58f1c4469733d474f97bc0714781744b1774
+Deleted: sha256:e718ed2dfe98594c7d040d7c82a39a1a9a1eedc8803fa7ebce994c2e6316dc3b
+Deleted: sha256:7fed8611b7eeaf4b5d13f85df1a9ca5a00468d697360a2544547fbe20f44f65a
+Deleted: sha256:8558d1c776d06e847c63914769100e161f45e1368e4fd604de9e95161feb9013
+Deleted: sha256:2d4612411a3ad632f1f93bdf483c1ac0718d38a8dfe197b1972b627e9b0aef78
+Deleted: sha256:4841742d007551a71f1ed328175538581cf621262ae6e50f0e2c862040e3408c
+Deleted: sha256:fb267ca9a728f0729ce8c7d5afd35c0579641b78aeb1c7c9bb039ac0f06700ac
+Deleted: sha256:aa5bff0737e5a8dfb89044f62d47aa541467c524d73e9b6bbe2e3f9c6fb27894
+
+/home/docker>
+
+/home/docker> docker container ls
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+51a3de209869        al-apache                                                        "httpd -D FOREGROUND"    About an hour ago   Up About an hour    0.0.0.0:9090->80/tcp                                                 admiring_swirles
+c1ffdb90fa76        quay.io/kubernetes-ingress-controller/nginx-ingress-controller   "/usr/bin/dumb-ini..."   2 hours ago         Up 2 hours                                                                               k8s_nginx-ingress-controller_nginx-ingress-controller-zjd74_kube-system_ab42b3da-2f94-11e9-8d17-080027326ca6_74
+c9e0a15eb6f0        k8s.gcr.io/heapster-grafana-amd64                                "/run.sh"                2 hours ago         Up 2 hours                                                                               k8s_grafana_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_9
+dbe17de34d2f        gcr.io/google_containers/hpa-example                             "apache2-foreground"     2 hours ago         Up 2 hours                                                                               k8s_hpa-example_hpa-example-797dfdbc87-c7xc5_default_56ad03f4-3be1-11e9-a9d7-080027326ca6_2
+154df5785284        k8s.gcr.io/heapster-influxdb-amd64                               "influxd --config ..."   2 hours ago         Up 2 hours                                                                               k8s_influxdb_monitoring-influxdb-66946c9f58-h5lhw_kube-system_abf955f0-2f94-11e9-8d17-080027326ca6_9
+51ce4b31ba73        k8s.gcr.io/kubernetes-dashboard-amd64                            "/dashboard --inse..."   2 hours ago         Up 2 hours                                                                               k8s_kubernetes-dashboard_kubernetes-dashboard-77d8b98585-9cffv_kube-system_aae2ad11-2f94-11e9-8d17-080027326ca6_14
+633944247c44        prom/prometheus                                                  "/bin/prometheus -..."   2 hours ago         Up 2 hours                                                                               k8s_prometheus_prometheus-deployment-79c7cf44fc-6bkz4_monitoring_add0d617-2f94-11e9-8d17-080027326ca6_9
+e151adeaa741        k8s.gcr.io/heapster-amd64                                        "/heapster --sourc..."   2 hours ago         Up 2 hours                                                                               k8s_heapster_heapster-xnbjb_kube-system_aafb3c7c-2f94-11e9-8d17-080027326ca6_9
+09fc7a882ddb        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_web_helloworld-dep-5cdb68cc76-45z5n_myspace_7c38d53f-30ef-11e9-b08f-080027326ca6_7
+d5d61169583f        k8s.gcr.io/heapster-influxdb-amd64                               "influxd --config ..."   2 hours ago         Up 2 hours                                                                               k8s_influxdb_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_9
+b62dce57cebd        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_nginx_web-2_default_f3f91763-3c01-11e9-a9d7-080027326ca6_2
+942489ef5918        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_web_helloworld-dep-5cdb68cc76-fpjk6_myspace_e30b4f05-30ee-11e9-b08f-080027326ca6_7
+7d16ced85ee1        k8s.gcr.io/k8s-dns-sidecar-amd64                                 "/sidecar --v=2 --..."   2 hours ago         Up 2 hours                                                                               k8s_sidecar_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_12
+ae70a9acf0ef        gcr.io/google_containers/metrics-server-amd64                    "/metrics-server -..."   2 hours ago         Up 2 hours                                                                               k8s_metrics-server_metrics-server-bb9ffc6b8-c4bsh_kube-system_ac742fe8-2f94-11e9-8d17-080027326ca6_9
+03068b43708e        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_nginx_web-0_default_8a01e78a-3bff-11e9-a9d7-080027326ca6_2
+31a79a767db8        gcr.io/kubernetes-helm/tiller                                    "/tiller"                2 hours ago         Up 2 hours                                                                               k8s_tiller_tiller-deploy-5b7c59888b-6rbgl_kube-system_42cc5a34-3c10-11e9-a9d7-080027326ca6_8
+9c62446396df        k8s.gcr.io/heapster-grafana-amd64                                "/run.sh"                2 hours ago         Up 2 hours                                                                               k8s_grafana_monitoring-grafana-65757b9656-h4fbs_kube-system_abcaee65-2f94-11e9-8d17-080027326ca6_9
+a2d2b85a57b9        k8s.gcr.io/defaultbackend                                        "/server"                2 hours ago         Up 2 hours                                                                               k8s_default-http-backend_default-http-backend-cvzhd_kube-system_ab6b020b-2f94-11e9-8d17-080027326ca6_25
+a97b690cf04c        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_nginx_web-1_default_f2ca7d1e-3c01-11e9-a9d7-080027326ca6_2
+9dc99f6df98c        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours          0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:18080->18080/tcp   k8s_POD_nginx-ingress-controller-zjd74_kube-system_ab42b3da-2f94-11e9-8d17-080027326ca6_9
+7d905c37153d        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_kubernetes-dashboard-77d8b98585-9cffv_kube-system_aae2ad11-2f94-11e9-8d17-080027326ca6_9
+ace245ec7b6f        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_monitoring-influxdb-66946c9f58-h5lhw_kube-system_abf955f0-2f94-11e9-8d17-080027326ca6_9
+149b65f03ae5        k8s.gcr.io/heapster-amd64                                        "/heapster --sourc..."   2 hours ago         Up 2 hours                                                                               k8s_heapster_heapster-546c9964c6-2w8ld_kube-system_ac314ae9-2f94-11e9-8d17-080027326ca6_9
+267daea59a6a        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_heapster-xnbjb_kube-system_aafb3c7c-2f94-11e9-8d17-080027326ca6_9
+4bf7c6ba4fca        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_helloworld-dep-5cdb68cc76-45z5n_myspace_7c38d53f-30ef-11e9-b08f-080027326ca6_7
+895b9042ea51        k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64                           "/dnsmasq-nanny -v..."   2 hours ago         Up 2 hours                                                                               k8s_dnsmasq_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_10
+e9974401995c        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_web-2_default_f3f91763-3c01-11e9-a9d7-080027326ca6_2
+b1f5b4398fdc        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_prometheus-deployment-79c7cf44fc-6bkz4_monitoring_add0d617-2f94-11e9-8d17-080027326ca6_9
+13fd0dbbeb4a        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_9
+1c239b3b390a        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_hpa-example-797dfdbc87-c7xc5_default_56ad03f4-3be1-11e9-a9d7-080027326ca6_2
+9c52c9c3ad14        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_web_helloworld-dep-5cdb68cc76-8snhv_myspace_7c06bfcb-30ef-11e9-b08f-080027326ca6_7
+12902ebc469d        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_helloworld-dep-5cdb68cc76-fpjk6_myspace_e30b4f05-30ee-11e9-b08f-080027326ca6_7
+403ee41416e4        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_wise-molly-mynginx-6bbc495554-xtzj2_default_26dfc17c-3c11-11e9-a9d7-080027326ca6_0
+d28cec8b0266        nginx                                                            "nginx -g 'daemon ..."   2 hours ago         Up 2 hours                                                                               k8s_web_helloworld-dep-5cdb68cc76-l4q5p_myspace_e30eab51-30ee-11e9-b08f-080027326ca6_7
+98ca4fcd3936        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_monitoring-grafana-65757b9656-h4fbs_kube-system_abcaee65-2f94-11e9-8d17-080027326ca6_9
+a68ec9c13e5d        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_web-1_default_f2ca7d1e-3c01-11e9-a9d7-080027326ca6_2
+4375f9fc5ad6        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_tiller-deploy-5b7c59888b-6rbgl_kube-system_42cc5a34-3c10-11e9-a9d7-080027326ca6_2
+7fc0bc01f6b3        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_web-0_default_8a01e78a-3bff-11e9-a9d7-080027326ca6_2
+1d73831e9abb        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_heapster-546c9964c6-2w8ld_kube-system_ac314ae9-2f94-11e9-8d17-080027326ca6_9
+30ae2186fa8b        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_metrics-server-bb9ffc6b8-c4bsh_kube-system_ac742fe8-2f94-11e9-8d17-080027326ca6_9
+0add43479a2e        k8s.gcr.io/k8s-dns-kube-dns-amd64                                "/kube-dns --domai..."   2 hours ago         Up 2 hours                                                                               k8s_kubedns_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_11
+4c34a9254683        gcr.io/google-containers/kube-addon-manager                      "/opt/kube-addons.sh"    2 hours ago         Up 2 hours                                                                               k8s_kube-addon-manager_kube-addon-manager-minikube_kube-system_c4c3188325a93a2d7fb1714e1abf1259_9
+eb9ff490eeba        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_default-http-backend-cvzhd_kube-system_ab6b020b-2f94-11e9-8d17-080027326ca6_9
+7f009b925191        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_helloworld-dep-5cdb68cc76-8snhv_myspace_7c06bfcb-30ef-11e9-b08f-080027326ca6_7
+3ba54da80704        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_helloworld-dep-5cdb68cc76-l4q5p_myspace_e30eab51-30ee-11e9-b08f-080027326ca6_7
+7aaff9cce988        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_9
+4e6c9737bee0        gcr.io/google_containers/pause-amd64:3.0                         "/pause"                 2 hours ago         Up 2 hours                                                                               k8s_POD_kube-addon-manager-minikube_kube-system_c4c3188325a93a2d7fb1714e1abf1259_9
+
+/home/docker>
+
+/home/docker> docker image ls
+REPOSITORY                                                       TAG                 IMAGE ID            CREATED             SIZE
+al-apache                                                        latest              67e8b76e9d3e        About an hour ago   10.4MB
+nginx                                                            latest              8c9ca4d17702        5 days ago          109MB
+alap                                                             4                   f69208970b36        6 days ago          11.7MB
+alap                                                             latest              f69208970b36        6 days ago          11.7MB
+alap                                                             3                   b70e246237d6        7 days ago          11.7MB
+pinger                                                           latest              d8b8e3bd7702        7 days ago          5.53MB
+<none>                                                           <none>              9a62cf51269d        7 days ago          5.53MB
+akrb05/app                                                       1                   e532bddfcfdb        7 days ago          10.4MB
+adityaprabhakara/app                                             1                   b2d4db48377b        7 days ago          11.7MB
+app                                                              1                   b2d4db48377b        7 days ago          11.7MB
+app                                                              latest              b2d4db48377b        7 days ago          11.7MB
+alap                                                             2                   d58810f44044        7 days ago          11.7MB
+alap                                                             1                   da090e1505f6        7 days ago          10.4MB
+alpine-alpache                                                   latest              5d6cb3da3abe        7 days ago          10.4MB
+nginx-ping                                                       latest              0105f0570c28        7 days ago          128MB
+gcr.io/kubernetes-helm/tiller                                    v2.13.0-rc.1        3df95e340abd        2 weeks ago         82.1MB
+ghost                                                            1-alpine            4afbb5470d6c        3 weeks ago         450MB
+nginx                                                            stable              1293e2b0a1af        3 weeks ago         109MB
+nginx                                                            mainline            f09fe80eb0e7        3 weeks ago         109MB
+mysql                                                            5.7                 e47e309f72c8        3 weeks ago         372MB
+nginx                                                            alpine              b411e34b4606        4 weeks ago         16.1MB
+alpine                                                           3.9                 caf27325b298        4 weeks ago         5.53MB
+alpine                                                           latest              caf27325b298        4 weeks ago         5.53MB
+ghost                                                            <none>              10abe1adb5ae        3 months ago        418MB
+k8s.gcr.io/heapster-amd64                                        v1.5.3              f57c75cd7b0a        10 months ago       75.3MB
+prom/prometheus                                                  v2.1.0              c8ecf7c719c1        13 months ago       112MB
+gcr.io/google_containers/metrics-server-amd64                    v0.2.1              9801395070f3        14 months ago       42.5MB
+k8s.gcr.io/kubernetes-dashboard-amd64                            v1.8.1              e94d2f21bc0c        14 months ago       121MB
+k8s.gcr.io/heapster-amd64                                        v1.5.0              86a0ddc3a8c2        14 months ago       75.3MB
+quay.io/kubernetes-ingress-controller/nginx-ingress-controller   0.9.0               e56d6a14283a        15 months ago       190MB
+gcr.io/google-containers/kube-addon-manager                      v6.5                d166ffa9201a        15 months ago       79.5MB
+k8s.gcr.io/defaultbackend                                        1.4                 846921f0fe0e        16 months ago       4.84MB
+k8s.gcr.io/k8s-dns-sidecar-amd64                                 1.14.5              fed89e8b4248        17 months ago       41.8MB
+k8s.gcr.io/k8s-dns-kube-dns-amd64                                1.14.5              512cd7425a73        17 months ago       49.4MB
+k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64                           1.14.5              459944ce8cc4        17 months ago       41.4MB
+k8s.gcr.io/heapster-influxdb-amd64                               v1.3.3              577260d221db        18 months ago       12.5MB
+k8s.gcr.io/heapster-grafana-amd64                                v4.4.3              8cb3de219af7        18 months ago       152MB
+gcr.io/google_containers/pause-amd64                             3.0                 99e59f495ffa        2 years ago         747kB
+gcr.io/google_containers/hpa-example                             latest              4ca4c13a6d7c        3 years ago         481MB
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              8c9ca4d17702        5 days ago          109MB
+nginx               stable              1293e2b0a1af        3 weeks ago         109MB
+nginx               mainline            f09fe80eb0e7        3 weeks ago         109MB
+nginx               alpine              b411e34b4606        4 weeks ago         16.1MB
+
+/home/docker> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              3.9                 caf27325b298        4 weeks ago         5.53MB
+alpine              latest              caf27325b298        4 weeks ago         5.53MB
+
+/home/docker> docker image history alpine
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+8c9ca4d17702        5 days ago          /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           5 days ago          /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           5 days ago          /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           5 days ago          /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           5 days ago          /bin/sh -c set -x  && apt-get update  && a...   54MB    
+<missing>           5 days ago          /bin/sh -c #(nop)  ENV NJS_VERSION=1.15.9....   0B      
+<missing>           5 days ago          /bin/sh -c #(nop)  ENV NGINX_VERSION=1.15....   0B      
+<missing>           3 weeks ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           3 weeks ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:5a6d066ba71fb0a...   55.3MB  
+
+/home/docker> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              3.9                 caf27325b298        4 weeks ago         5.53MB
+alpine              latest              caf27325b298        4 weeks ago         5.53MB
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              8c9ca4d17702        5 days ago          109MB
+nginx               stable              1293e2b0a1af        3 weeks ago         109MB
+nginx               mainline            f09fe80eb0e7        3 weeks ago         109MB
+nginx               alpine              b411e34b4606        4 weeks ago         16.1MB
+
+/home/docker> docker image pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+f7e2b70d04ae: Pull complete
+08dd01e3f3ac: Pull complete
+d9ef3a1eb792: Pull complete
+Digest: sha256:e2048a115f51d61fa589f5f592f677300f1c122de07904e0ebefe44a6a89da23
+Status: Downloaded newer image for nginx:latest
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              881bd08c0b08        2 hours ago         109MB
+nginx               <none>              8c9ca4d17702        5 days ago          109MB
+nginx               stable              1293e2b0a1af        3 weeks ago         109MB
+nginx               mainline            f09fe80eb0e7        3 weeks ago         109MB
+nginx               alpine              b411e34b4606        4 weeks ago         16.1MB
+
+/home/docker> docker image pull nginx:1
+1: Pulling from library/nginx
+Digest: sha256:e2048a115f51d61fa589f5f592f677300f1c122de07904e0ebefe44a6a89da23
+Status: Downloaded newer image for nginx:1
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1                   881bd08c0b08        2 hours ago         109MB
+nginx               latest              881bd08c0b08        2 hours ago         109MB
+nginx               <none>              8c9ca4d17702        5 days ago          109MB
+nginx               stable              1293e2b0a1af        3 weeks ago         109MB
+nginx               mainline            f09fe80eb0e7        3 weeks ago         109MB
+nginx               alpine              b411e34b4606        4 weeks ago         16.1MB
+
+/home/docker> docker image ls
+REPOSITORY                                                       TAG                 IMAGE ID            CREATED             SIZE
+al-apache                                                        latest              67e8b76e9d3e        About an hour ago   10.4MB
+nginx                                                            1                   881bd08c0b08        2 hours ago         109MB
+nginx                                                            latest              881bd08c0b08        2 hours ago         109MB
+nginx                                                            <none>              8c9ca4d17702        5 days ago          109MB
+alap                                                             4                   f69208970b36        7 days ago          11.7MB
+alap                                                             latest              f69208970b36        7 days ago          11.7MB
+alap                                                             3                   b70e246237d6        7 days ago          11.7MB
+pinger                                                           latest              d8b8e3bd7702        7 days ago          5.53MB
+<none>                                                           <none>              9a62cf51269d        7 days ago          5.53MB
+akrb05/app                                                       1                   e532bddfcfdb        7 days ago          10.4MB
+adityaprabhakara/app                                             1                   b2d4db48377b        7 days ago          11.7MB
+app                                                              1                   b2d4db48377b        7 days ago          11.7MB
+app                                                              latest              b2d4db48377b        7 days ago          11.7MB
+alap                                                             2                   d58810f44044        7 days ago          11.7MB
+alap                                                             1                   da090e1505f6        7 days ago          10.4MB
+alpine-alpache                                                   latest              5d6cb3da3abe        7 days ago          10.4MB
+nginx-ping                                                       latest              0105f0570c28        7 days ago          128MB
+gcr.io/kubernetes-helm/tiller                                    v2.13.0-rc.1        3df95e340abd        2 weeks ago         82.1MB
+ghost                                                            1-alpine            4afbb5470d6c        3 weeks ago         450MB
+nginx                                                            stable              1293e2b0a1af        3 weeks ago         109MB
+nginx                                                            mainline            f09fe80eb0e7        3 weeks ago         109MB
+mysql                                                            5.7                 e47e309f72c8        3 weeks ago         372MB
+nginx                                                            alpine              b411e34b4606        4 weeks ago         16.1MB
+alpine                                                           3.9                 caf27325b298        4 weeks ago         5.53MB
+alpine                                                           latest              caf27325b298        4 weeks ago         5.53MB
+ghost                                                            <none>              10abe1adb5ae        3 months ago        418MB
+k8s.gcr.io/heapster-amd64                                        v1.5.3              f57c75cd7b0a        10 months ago       75.3MB
+prom/prometheus                                                  v2.1.0              c8ecf7c719c1        13 months ago       112MB
+gcr.io/google_containers/metrics-server-amd64                    v0.2.1              9801395070f3        14 months ago       42.5MB
+k8s.gcr.io/kubernetes-dashboard-amd64                            v1.8.1              e94d2f21bc0c        14 months ago       121MB
+k8s.gcr.io/heapster-amd64                                        v1.5.0              86a0ddc3a8c2        14 months ago       75.3MB
+quay.io/kubernetes-ingress-controller/nginx-ingress-controller   0.9.0               e56d6a14283a        15 months ago       190MB
+gcr.io/google-containers/kube-addon-manager                      v6.5                d166ffa9201a        15 months ago       79.5MB
+k8s.gcr.io/defaultbackend                                        1.4                 846921f0fe0e        16 months ago       4.84MB
+k8s.gcr.io/k8s-dns-sidecar-amd64                                 1.14.5              fed89e8b4248        17 months ago       41.8MB
+k8s.gcr.io/k8s-dns-kube-dns-amd64                                1.14.5              512cd7425a73        17 months ago       49.4MB
+k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64                           1.14.5              459944ce8cc4        17 months ago       41.4MB
+k8s.gcr.io/heapster-influxdb-amd64                               v1.3.3              577260d221db        18 months ago       12.5MB
+k8s.gcr.io/heapster-grafana-amd64                                v4.4.3              8cb3de219af7        18 months ago       152MB
+gcr.io/google_containers/pause-amd64                             3.0                 99e59f495ffa        2 years ago         747kB
+gcr.io/google_containers/hpa-example                             latest              4ca4c13a6d7c        3 years ago         481MB
+
+/home/docker>
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1                   881bd08c0b08        2 hours ago         109MB
+nginx               latest              881bd08c0b08        2 hours ago         109MB
+nginx               <none>              8c9ca4d17702        5 days ago          109MB
+nginx               stable              1293e2b0a1af        3 weeks ago         109MB
+nginx               mainline            f09fe80eb0e7        3 weeks ago         109MB
+nginx               alpine              b411e34b4606        4 weeks ago         16.1MB
+
+/home/docker> docker image ls al-alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+
+/home/docker> docker image ls al-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+al-apache           latest              67e8b76e9d3e        2 hours ago         10.4MB
+
+/home/docker> docker image history alpine
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker> docker image history al-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+67e8b76e9d3e        2 hours ago         sh                                              4.9MB   
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B      
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB  
+
+/home/docker> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+881bd08c0b08        3 hours ago         /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B      
+<missing>           3 hours ago         /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B      
+<missing>           3 hours ago         /bin/sh -c #(nop)  EXPOSE 80                    0B      
+<missing>           3 hours ago         /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B     
+<missing>           3 hours ago         /bin/sh -c set -x  && apt-get update  && a...   54MB    
+<missing>           3 hours ago         /bin/sh -c #(nop)  ENV NJS_VERSION=1.15.9....   0B      
+<missing>           3 hours ago         /bin/sh -c #(nop)  ENV NGINX_VERSION=1.15....   0B      
+<missing>           3 hours ago         /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B      
+<missing>           8 hours ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B      
+<missing>           8 hours ago         /bin/sh -c #(nop) ADD file:5ea7dfe8c8bc87e...   55.3MB  
+
+/home/docker>
 
 
