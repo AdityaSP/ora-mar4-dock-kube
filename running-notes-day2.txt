@@ -1,0 +1,145 @@
+/home/docker> docker container run -d alpine
+c65790101997097ae6b0d681e66dfd16785d668941bb12d8b4461d97c5f6acb4
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+c65790101997        alpine                                                           "/bin/sh"                23 seconds ago      Exited (0) 21 seconds ago                                                                        epic_meninsky
+
+/home/docker> #docker container run -d alpine
+
+/home/docker> docker container run -d alpine ping -c20 google.com
+e770538caa768f9c10b950ee074801339c63e890aa626f873a90a67fdab53ecf
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+e770538caa76        alpine                                                           "ping -c20 google.com"   5 seconds ago       Up 3 seconds                                                                             zen_yalow
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+e770538caa76        alpine                                                           "ping -c20 google.com"   55 seconds ago      Exited (0) 35 seconds ago                                                                        zen_yalow
+c65790101997        alpine                                                           "/bin/sh"                6 minutes ago       Exited (0) 6 minutes ago                                                                         epic_meninsky
+
+/home/docker>
+
+/home/docker> docker container run -d alpine ping -c40 google.com
+98e47cbbff8a4bdaa58baa35ffd3adfc69a9426c2f3757f271b0c6be29475100
+
+/home/docker> docker container run -d alpine ping -c40 google.com
+347f9156b72b43135ba3ea48b6c7a837b3ba711404696cc2a211f23e815d3078
+
+/home/docker> #hello.sh --> while true: ping -c20 google.com
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+347f9156b72b        alpine                                                           "ping -c40 google.com"   15 minutes ago      Exited (0) 14 minutes ago                                                                        loving_sammet
+98e47cbbff8a        alpine                                                           "ping -c40 google.com"   16 minutes ago      Exited (0) 15 minutes ago                                                                        sleepy_noether
+e770538caa76        alpine                                                           "ping -c20 google.com"   20 minutes ago      Exited (0) 20 minutes ago                                                                        zen_yalow
+c65790101997        alpine                                                           "/bin/sh"                26 minutes ago      Exited (0) 26 minutes ago                                                                        epic_meninsky
+
+/home/docker> docker container logs 347f9156b72b
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=35.274 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=32.809 ms
+64 bytes from 172.217.163.46: seq=2 ttl=53 time=41.731 ms
+64 bytes from 172.217.163.46: seq=3 ttl=53 time=31.955 ms
+64 bytes from 172.217.163.46: seq=4 ttl=53 time=33.170 ms
+64 bytes from 172.217.163.46: seq=5 ttl=53 time=30.092 ms
+64 bytes from 172.217.163.46: seq=6 ttl=53 time=33.800 ms
+64 bytes from 172.217.163.46: seq=7 ttl=53 time=32.284 ms
+64 bytes from 172.217.163.46: seq=8 ttl=53 time=31.316 ms
+64 bytes from 172.217.163.46: seq=9 ttl=53 time=31.112 ms
+64 bytes from 172.217.163.46: seq=10 ttl=53 time=33.529 ms
+64 bytes from 172.217.163.46: seq=11 ttl=53 time=32.868 ms
+64 bytes from 172.217.163.46: seq=12 ttl=53 time=32.718 ms
+64 bytes from 172.217.163.46: seq=13 ttl=53 time=34.792 ms
+64 bytes from 172.217.163.46: seq=14 ttl=53 time=40.303 ms
+64 bytes from 172.217.163.46: seq=15 ttl=53 time=32.944 ms
+64 bytes from 172.217.163.46: seq=16 ttl=53 time=32.886 ms
+64 bytes from 172.217.163.46: seq=17 ttl=53 time=32.656 ms
+64 bytes from 172.217.163.46: seq=18 ttl=53 time=31.090 ms
+64 bytes from 172.217.163.46: seq=19 ttl=53 time=34.285 ms
+64 bytes from 172.217.163.46: seq=20 ttl=53 time=33.621 ms
+64 bytes from 172.217.163.46: seq=21 ttl=53 time=33.461 ms
+64 bytes from 172.217.163.46: seq=22 ttl=53 time=35.865 ms
+64 bytes from 172.217.163.46: seq=23 ttl=53 time=32.557 ms
+64 bytes from 172.217.163.46: seq=24 ttl=53 time=32.192 ms
+64 bytes from 172.217.163.46: seq=25 ttl=53 time=32.818 ms
+64 bytes from 172.217.163.46: seq=26 ttl=53 time=30.058 ms
+64 bytes from 172.217.163.46: seq=27 ttl=53 time=32.335 ms
+64 bytes from 172.217.163.46: seq=28 ttl=53 time=35.250 ms
+64 bytes from 172.217.163.46: seq=29 ttl=53 time=31.221 ms
+64 bytes from 172.217.163.46: seq=30 ttl=53 time=32.117 ms
+64 bytes from 172.217.163.46: seq=31 ttl=53 time=31.634 ms
+64 bytes from 172.217.163.46: seq=32 ttl=53 time=30.586 ms
+64 bytes from 172.217.163.46: seq=33 ttl=53 time=31.279 ms
+64 bytes from 172.217.163.46: seq=34 ttl=53 time=35.379 ms
+64 bytes from 172.217.163.46: seq=35 ttl=53 time=33.681 ms
+64 bytes from 172.217.163.46: seq=36 ttl=53 time=31.152 ms
+64 bytes from 172.217.163.46: seq=37 ttl=53 time=30.628 ms
+64 bytes from 172.217.163.46: seq=38 ttl=53 time=30.519 ms
+64 bytes from 172.217.163.46: seq=39 ttl=53 time=33.851 ms
+
+--- google.com ping statistics ---
+40 packets transmitted, 40 packets received, 0% packet loss
+round-trip min/avg/max = 30.058/33.045/41.731 ms
+
+/home/docker>
+
+/home/docker> docker container run -d alpine ping -c2 google.com
+f40575cee694047230baf0bdd5cf4949f8babe7d448c74caac5bb371be1564a4
+
+/home/docker> docker container logs f40575cee
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=31.915 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=36.565 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 31.915/34.240/36.565 ms
+
+/home/docker> docker container run alpine ping -c2 google.com
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=32.848 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=44.133 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 32.848/38.490/44.133 ms
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED              STATUS                          PORTS                                                                NAMES
+b334de30a926        alpine                                                           "ping -c2 google.com"    About a minute ago   Exited (0) About a minute ago                                                                        nostalgic_lamport
+f40575cee694        alpine                                                           "ping -c2 google.com"    2 minutes ago        Exited (0) 2 minutes ago                                                                             amazing_montalcini
+347f9156b72b        alpine                                                           "ping -c40 google.com"   19 minutes ago       Exited (0) 18 minutes ago                                                                            loving_sammet
+98e47cbbff8a        alpine                                                           "ping -c40 google.com"   20 minutes ago       Exited (0) 19 minutes ago                                                                            sleepy_noether
+e770538caa76        alpine                                                           "ping -c20 google.com"   24 minutes ago       Exited (0) 24 minutes ago                                                                            zen_yalow
+c65790101997        alpine                                                           "/bin/sh"                30 minutes ago       Exited (0) 30 minutes ago                                                                            epic_meninsky
+
+/home/docker> docker container start f40575cee694
+f40575cee694
+
+/home/docker> docker container logs f40575cee694
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=31.915 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=36.565 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 31.915/34.240/36.565 ms
+PING google.com (172.217.163.46): 56 data bytes
+64 bytes from 172.217.163.46: seq=0 ttl=53 time=34.476 ms
+64 bytes from 172.217.163.46: seq=1 ttl=53 time=33.658 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 33.658/34.067/34.476 ms
+
+/home/docker>
+
+/home/docker>
