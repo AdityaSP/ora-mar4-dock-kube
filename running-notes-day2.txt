@@ -143,3 +143,126 @@ round-trip min/avg/max = 33.658/34.067/34.476 ms
 /home/docker>
 
 /home/docker>
+
+----------------------------------------------------------------------------------------------------------
+/home/docker> docker container run -it alpine sh
+/ # apk update
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/community/x86_64/APKINDEX.tar.gz
+v3.9.1-5-gae3d795467 [http://dl-cdn.alpinelinux.org/alpine/v3.9/main]
+v3.9.0-90-gf0b6b9da2f [http://dl-cdn.alpinelinux.org/alpine/v3.9/community]
+OK: 9754 distinct packages available
+/ # apk add apache2
+(1/6) Installing libuuid (2.33-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r5)
+(5/6) Installing pcre (8.42-r1)
+(6/6) Installing apache2 (2.4.38-r2)
+Executing apache2-2.4.38-r2.pre-install
+Executing busybox-1.29.3-r10.trigger
+OK: 9 MiB in 20 packages
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 sh
+   15 root      0:00 ps
+/ # httpd
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.23. Set the 'ServerName' directive globally to suppress this message
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 sh
+   17 root      0:00 httpd
+   18 apache    0:00 httpd
+   19 apache    0:00 httpd
+   20 apache    0:00 httpd
+   21 apache    0:00 httpd
+   22 apache    0:00 httpd
+   23 root      0:00 ps
+/ # exit
+
+/home/docker> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+a1fda9d5c5c7        alpine                                                           "sh"                     4 minutes ago       Exited (0) 11 seconds ago                                                                        adoring_snyder
+
+/home/docker> docker container commit a1fda9d5c5c7 al-apache
+sha256:67e8b76e9d3e19aa5ad25606b772a817dcbe83619ca0fbe5add8c931169492a6
+
+/home/docker> docker container prune a1fda9d5c5c7
+"docker container prune" accepts no arguments.
+See 'docker container prune --help'.
+
+Usage:  docker container prune [OPTIONS]
+
+Remove all stopped containers
+
+/home/docker> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+a1fda9d5c5c7fd27178ca5d7004761f1a242451a4cb3f9f3cd7599032f00a705
+
+Total reclaimed space: 4.899MB
+
+/home/docker> docker container run -d al-apache
+55ba19412ad663c7ef33328417e66609614ba2574be32dc73e3becb6967fa154
+
+/home/docker> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                      PORTS                                                                NAMES
+55ba19412ad6        al-apache                                                        "sh"                     13 seconds ago      Exited (0) 12 seconds ago                                                                        adoring_euclid
+
+/home/docker> docker container run -d al-apache httpd
+ee5a22ba1a6f216680ed19451c97ecf954b696b771144814b215316a8f703827
+
+/home/docker> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED              STATUS                          PORTS                                                                NAMES
+ee5a22ba1a6f        al-apache                                                        "httpd"                  6 seconds ago        Exited (0) 5 seconds ago                                                                             hungry_almeida
+55ba19412ad6        al-apache                                                        "sh"                     About a minute ago   Exited (0) About a minute ago                                                                        adoring_euclid
+
+/home/docker> docker container run -it al-apache sh
+/ # httpd
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.23. Set the 'ServerName' directive globally to suppress this message
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 sh
+    6 root      0:00 httpd
+    7 apache    0:00 httpd
+    8 apache    0:00 httpd
+    9 apache    0:00 httpd
+   10 apache    0:00 httpd
+   11 apache    0:00 httpd
+   12 root      0:00 ps
+/ # kill -9 6 7 8 9 10 11
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 sh
+   13 root      0:00 ps
+/ # httpd -D FOREGOUND
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.23. Set the 'ServerName' directive globally to suppress this message
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 sh
+   15 root      0:00 httpd -D FOREGOUND
+   16 apache    0:00 httpd -D FOREGOUND
+   17 apache    0:00 httpd -D FOREGOUND
+   18 apache    0:00 httpd -D FOREGOUND
+   19 apache    0:00 httpd -D FOREGOUND
+   20 apache    0:00 httpd -D FOREGOUND
+   21 root      0:00 ps
+/ # kill - 9 15 16 17 18 19 20
+sh: bad signal name ''
+/ # kill -9 15 16 17 18 19 20
+/ # httpd -D FOREGROUND
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.23. Set the 'ServerName' directive globally to suppress this message
+^C/ # exit
+
+/home/docker> docker container run -d -p 9090:80 al-apache httpd -D FOREGROUND
+51a3de209869536f9a46ed4b5b9931eae609aef80c70ab531a84d0aa45f3bf37
+
+/home/docker> docker container ls | grep -v k8
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+51a3de209869        al-apache                                                        "httpd -D FOREGROUND"    8 seconds ago       Up 7 seconds        0.0.0.0:9090->80/tcp                                                 admiring_swirles
+
+/home/docker>
+
+
+
