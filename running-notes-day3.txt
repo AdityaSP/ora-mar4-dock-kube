@@ -287,3 +287,258 @@ Run 'docker COMMAND --help' for more information on a command.
 /c/Users/Dell lap/docker-workshop/mar4> ls
 al-apache  app
 /c/Users/Dell lap/docker-workshop/mar4>
+
+---------------------------------------------------------------------------------------
+/c/Users/Dell lap/docker-workshop/mar4> docker container run -d -e APACHE_PORT=9999 -p 9090:9999 -v /var/log/apache2 al-apache
+a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749
+/c/Users/Dell lap/docker-workshop/mar4> docker container inspect a0fe5432737
+[
+    {
+        "Id": "a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749",
+        "Created": "2019-03-06T04:44:53.640334722Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "httpd",
+            "-D",
+            "FOREGROUND"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 18651,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-03-06T04:44:54.376544482Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:3ceae2ee17c2504e68e42accf951e9002257292bb08848240c1cda3261b492ac",
+        "ResolvConfPath": "/var/lib/docker/containers/a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749/hostname",
+        "HostsPath": "/var/lib/docker/containers/a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749/hosts",
+        "LogPath": "/var/lib/docker/containers/a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749/a0fe5432737a82aecce1ebccb8cea48b16e058558d9778c98170fa3a0dcb1749-json.log",
+        "Name": "/jolly_turing",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {
+                "9999/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9090"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/3f2d9941acf963cc8fef9ee1645b16f94af62d57b8cb5e0fc7ac40cac35ddf3e-init/diff:/var/lib/docker/overlay2/ebbc943ab8b246d977ba0edf7f5ff1b5d7338db1004b0855758e49ad97dfc8f7/diff:/var/lib/docker/overlay2/a983eda173638d27fdcbf38b0be05aed8583993c6ba3da85616b97f7d36865c8/diff:/var/lib/docker/overlay2/e739893aaf74d6c79980815daacbc95c85d9b2758f201cc97bcb23adf26929b6/diff:/var/lib/docker/overlay2/d003c77c4836dc10b62235db9132d67689c7dd8f5554ff3535a98be95eb14ac6/diff:/var/lib/docker/overlay2/ff698551cf2ab16f0e445fa2265c0d8fe73b167b40e1d5d8a28927d8e64ca6ac/diff",
+                "MergedDir": "/var/lib/docker/overlay2/3f2d9941acf963cc8fef9ee1645b16f94af62d57b8cb5e0fc7ac40cac35ddf3e/merged",
+                "UpperDir": "/var/lib/docker/overlay2/3f2d9941acf963cc8fef9ee1645b16f94af62d57b8cb5e0fc7ac40cac35ddf3e/diff",
+                "WorkDir": "/var/lib/docker/overlay2/3f2d9941acf963cc8fef9ee1645b16f94af62d57b8cb5e0fc7ac40cac35ddf3e/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5",
+                "Source": "/var/lib/docker/volumes/1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5/_data",
+                "Destination": "/var/log/apache2",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "a0fe5432737a",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "9999/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "APACHE_PORT=9999",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "httpd",
+                "-D",
+                "FOREGROUND"
+            ],
+            "ArgsEscaped": true,
+            "Image": "al-apache",
+            "Volumes": {
+                "/var/log/apache2": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "cd264b2ec2f75eab61f8f8393b02803421f8818dc02d4cd8dfe53be2c178c65e",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "9999/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9090"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/cd264b2ec2f7",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "df0c47e172c7a225de40665e71f34f26d677de0e14b6842edd2375c244ffd2bd",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.23",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:17",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "f6e3bcd0d11bdbdbf9295e97ed09baf0bca6a4e829a9aded3f9edab18b20767e",
+                    "EndpointID": "df0c47e172c7a225de40665e71f34f26d677de0e14b6842edd2375c244ffd2bd",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.23",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:17",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+/c/Users/Dell lap/docker-workshop/mar4> docker container rm -rf a0fe5432737
+unknown shorthand flag: 'r' in -rf
+See 'docker container rm --help'.
+/c/Users/Dell lap/docker-workshop/mar4> docker container rm -f a0fe5432737
+a0fe5432737
+/c/Users/Dell lap/docker-workshop/mar4> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+cdaa12b31922        blog-nw             bridge              local
+f6e3bcd0d11b        bridge              bridge              local
+f09381e2f190        host                host                local
+e6099f3dee70        mynet               bridge              local
+9cce334a36a7        none                null                local
+1177a9e2e616        w1-w2-net           bridge              local
+9525e23e2f8a        w2-w3-net           bridge              local
+/c/Users/Dell lap/docker-workshop/mar4> docker volume ls
+DRIVER              VOLUME NAME
+local               1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5
+/c/Users/Dell lap/docker-workshop/mar4>
+/c/Users/Dell lap/docker-workshop/mar4> docker volume ls
+DRIVER              VOLUME NAME
+local               1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5
+/c/Users/Dell lap/docker-workshop/mar4> docker volume inspect 1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5
+[
+    {
+        "CreatedAt": "2019-03-06T04:44:54Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5/_data",
+        "Name": "1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed98a5",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+/c/Users/Dell lap/docker-workshop/mar4>
+
