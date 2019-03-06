@@ -1,0 +1,8 @@
+1. create nw
+docker network create blog-nw
+
+2. bring up mysql
+docker container run -d -v /tmp/blog:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=welcome --network blog-nw --name blog-db mysql:5.7 
+
+3. bring up ghost
+docker container run -d -p 9595:2368 --network blog-nw --name ghost -e database__client=mysql -e database__connection__host=blog-db -e database__connection__user=root -e database__connection__password=welcome -e database__connection__database=ghost ghost:1-alpine
