@@ -542,3 +542,353 @@ local               1aa9b3b54273f53acbc5685d3b40f03695ab040691b25dfce0c8247eb6ed
 ]
 /c/Users/Dell lap/docker-workshop/mar4>
 
+----------------------------------------------------------------
+/c/Users/Dell lap/docker-workshop/mar4> docker volume ls
+DRIVER              VOLUME NAME
+/c/Users/Dell lap/docker-workshop/mar4> docker container run -d -e MYSQL_ROOT_PA                SSWORD=welcome mysql:5.7
+181f72e269befd6580d72d9b79987a6bfd98eebc06d546d402ea0fd6319d669b
+/c/Users/Dell lap/docker-workshop/mar4> docker container ls | grep -v k8s                       CONTAINER ID        IMAGE                                                                            COMMAND                  CREATED             STATUS              PORTS                                                                                NAMES
+181f72e269be        mysql:5.7                                                                        "docker-entrypoint..."   11 seconds ago      Up 8 seconds        3306/tcp,                 33060/tcp                                                  wizardly_mcnulty
+/c/Users/Dell lap/docker-workshop/mar4> docker container inspect 181f72e269be
+[
+    {
+        "Id": "181f72e269befd6580d72d9b79987a6bfd98eebc06d546d402ea0fd6319d669b"                ,
+        "Created": "2019-03-06T05:18:00.457653918Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "mysqld"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 26180,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-03-06T05:18:01.886844307Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:e47e309f72c831cf880cc0e1990b9c5ac427016acdc71346a36c838                06ca79bb4",
+        "ResolvConfPath": "/var/lib/docker/containers/181f72e269befd6580d72d9b79                987a6bfd98eebc06d546d402ea0fd6319d669b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/181f72e269befd6580d72d9b7998                7a6bfd98eebc06d546d402ea0fd6319d669b/hostname",
+        "HostsPath": "/var/lib/docker/containers/181f72e269befd6580d72d9b79987a6                bfd98eebc06d546d402ea0fd6319d669b/hosts",
+        "LogPath": "/var/lib/docker/containers/181f72e269befd6580d72d9b79987a6bf                d98eebc06d546d402ea0fd6319d669b/181f72e269befd6580d72d9b79987a6bfd98eebc06d546d4                02ea0fd6319d669b-json.log",
+        "Name": "/wizardly_mcnulty",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/13c880ad5e74e6a3bded6ff3fc                70c9594b3173ddd13fe7029d21a961a1e50dcd-init/diff:/var/lib/docker/overlay2/bfb128                209ab0ad22b040d63e8ae344a2ce3a29b1626bbbafbe9dc6f3ab1109a2/diff:/var/lib/docker/                overlay2/5ffce50ac56b5c4f877225da4241f4f4a0094eaf6ac01fdff1d2f331472cb2f1/diff:/                var/lib/docker/overlay2/39167d4c67cfc98f2f483678fa3000039a0ee6942f0c863688e84016                0c94c2ba/diff:/var/lib/docker/overlay2/ad48ccab58e750ecf49f0fd4c19eacab547c34a76                8ac3e329844a60c79c98664/diff:/var/lib/docker/overlay2/8fb2de8d2111338c136e5f40ed                0353ea49a8046ff135a1983e63f5a00307ec3f/diff:/var/lib/docker/overlay2/c9d995d2cd0                e1d8c1e12b11edb52b7b0bc4e416a200f0a8e53f50f372e60dacf/diff:/var/lib/docker/overl                ay2/7d542c6c69391e7d0678a4b1506f0caba15bb8f13715eaafdeab23f74bbcee07/diff:/var/l                ib/docker/overlay2/4740ff9fa2c73756ddc41fa3cabdb78179494aaf2ca8b6e3f5057f61abefb                9aa/diff:/var/lib/docker/overlay2/8b998223ea1e293e78c829d093545158b3d0bcd95f7aea                77becc6db999105975/diff:/var/lib/docker/overlay2/cdfc3f3d6ebca67b5c13c51f806bea7                28657fd2a7cddddc941db06e1e125fd84/diff:/var/lib/docker/overlay2/338d488aaebaa9fe                f7ce76aeab54097716828567c57bcc63de1c443de01f1989/diff",
+                "MergedDir": "/var/lib/docker/overlay2/13c880ad5e74e6a3bded6ff3f                c70c9594b3173ddd13fe7029d21a961a1e50dcd/merged",
+                "UpperDir": "/var/lib/docker/overlay2/13c880ad5e74e6a3bded6ff3fc                70c9594b3173ddd13fe7029d21a961a1e50dcd/diff",
+                "WorkDir": "/var/lib/docker/overlay2/13c880ad5e74e6a3bded6ff3fc7                0c9594b3173ddd13fe7029d21a961a1e50dcd/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "89a5e5599688c242564e2ff885871b3e72b4d5ea8ff4d7f95aaa2fa                f0fe26aab",
+                "Source": "/var/lib/docker/volumes/89a5e5599688c242564e2ff885871                b3e72b4d5ea8ff4d7f95aaa2faf0fe26aab/_data",
+                "Destination": "/var/lib/mysql",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "181f72e269be",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "3306/tcp": {},
+                "33060/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "MYSQL_ROOT_PASSWORD=welcome",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b                in",
+                "GOSU_VERSION=1.7",
+                "MYSQL_MAJOR=5.7",
+                "MYSQL_VERSION=5.7.25-1debian9"
+            ],
+            "Cmd": [
+                "mysqld"
+            ],
+            "ArgsEscaped": true,
+            "Image": "mysql:5.7",
+            "Volumes": {
+                "/var/lib/mysql": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "24b9ca820174c2a2d26716ea6e33ab0e590696c5fdb82efcafc20e                9d8a44b083",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "3306/tcp": null,
+                "33060/tcp": null
+            },
+            "SandboxKey": "/var/run/docker/netns/24b9ca820174",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "230f375bfeb0ece73f2d15b4623f383d2683ce6b3dc29ea6ab5b2                977ba02376f",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.23",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:17",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "f6e3bcd0d11bdbdbf9295e97ed09baf0bca6a4e829a9ad                ed3f9edab18b20767e",
+                    "EndpointID": "230f375bfeb0ece73f2d15b4623f383d2683ce6b3dc29                ea6ab5b2977ba02376f",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.23",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:17",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+/c/Users/Dell lap/docker-workshop/mar4> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                                            COMMAND                  CREATED              STATUS              PORTS                                                                                NAMES
+181f72e269be        mysql:5.7                                                                        "docker-entrypoint..."   About a minute ago   Up About a minute   3306/tcp,                 33060/tcp                                                  wizardly_mcnulty
+/c/Users/Dell lap/docker-workshop/mar4> docker container rm -f 181f72e269be
+181f72e269be
+/c/Users/Dell lap/docker-workshop/mar4>
+/c/Users/Dell lap/docker-workshop/mar4> docker volume prune
+WARNING! This will remove all volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Deleted Volumes:
+89a5e5599688c242564e2ff885871b3e72b4d5ea8ff4d7f95aaa2faf0fe26aab
+
+Total reclaimed space: 148.6MB
+/c/Users/Dell lap/docker-workshop/mar4> docker container run -d -e MYSQL_ROOT_PA                SSWORD=welcome -v proj_db:/var/lib/mysql mysql:5.7
+11bc2808c955eab08c695c310ecaabff184838fd3a42aa2a536e9bce18f9094f
+/c/Users/Dell lap/docker-workshop/mar4> docker volume ls
+DRIVER              VOLUME NAME
+local               proj_db
+/c/Users/Dell lap/docker-workshop/mar4> docker volume inspect
+"docker volume inspect" requires at least 1 argument.
+See 'docker volume inspect --help'.
+
+Usage:  docker volume inspect [OPTIONS] VOLUME [VOLUME...]
+
+Display detailed information on one or more volumes
+/c/Users/Dell lap/docker-workshop/mar4> docker volume inspect proj_db
+[
+    {
+        "CreatedAt": "2019-03-06T05:24:06Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/proj_db/_data",
+        "Name": "proj_db",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+/c/Users/Dell lap/docker-workshop/mar4> #docker container run -d -e MYSQL_ROOT_P                ASSWORD=welcome -v proj_db:/var/lib/mysql mysql:5.7
+/c/Users/Dell lap/docker-workshop/mar4> docker container ls | grep -v k8s                       CONTAINER ID        IMAGE                                                                            COMMAND                  CREATED              STATUS              PORTS                                                                                NAMES
+11bc2808c955        mysql:5.7                                                                        "docker-entrypoint..."   About a minute ago   Up About a minute   3306/tcp,                 33060/tcp                                                  condescending_dijkst                ra
+/c/Users/Dell lap/docker-workshop/mar4> docker container exec -it 11bc2808c955 m                ysql -uroot -pwelcome
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.04 sec)
+
+mysql> create database myprojectdb;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| myprojectdb        |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+/c/Users/Dell lap/docker-workshop/mar4> ##docker container run -d -e MYSQL_ROOT_                PASSWORD=welcome -v proj_db:/var/lib/mysql mysql:5.7
+/c/Users/Dell lap/docker-workshop/mar4> docker container rm -f 11bc2808c955
+11bc2808c955
+/c/Users/Dell lap/docker-workshop/mar4> docker volume ls
+DRIVER              VOLUME NAME
+local               proj_db
+/c/Users/Dell lap/docker-workshop/mar4> docker container run -d -e MYSQL_ROOT_PA                SSWORD=welcome -v proj_db:/var/lib/mysql mysql:5.7
+41800d95c87be97b4f14e6f93b8b96b5f1d624dc111bf3df529aa5268a1251e5
+/c/Users/Dell lap/docker-workshop/mar4> docker container exec -it 41800d95 mysql                 -uroot -pwelcome
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| myprojectdb        |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> exit
+Bye
+/c/Users/Dell lap/docker-workshop/mar4> cat al-apache/Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN apk add apache2
+
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENV APACHE_PORT 80
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+/c/Users/Dell lap/docker-workshop/mar4>
+/c/Users/Dell lap/docker-workshop/mar4> docker container run -d -e APACHE_PORT=9                999 -p 9090:9999 -v /tmp/apachelogs:/var/log/apache2 al-apache
+9d7d185a84b6231737030833809bdf9768c330dde6ffd259f702a94e45601033
+/c/Users/Dell lap/docker-workshop/mar4> cd /tmp/apachelogs/
+/tmp/apachelogs> ls
+access.log  error.log
+/tmp/apachelogs>
+
