@@ -1,0 +1,289 @@
+/home/docker/al-apache> cat Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN apk add apache2
+
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+/home/docker/al-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 8080/" /etc/apache2/httpd.conf
+exec "$@"
+/home/docker/al-apache> docker container run --rm alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=d66e160fc7f4
+HOME=/root
+/home/docker/al-apache> docker container run --rm -e MYVAR=hello alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=e55b2bc75944
+MYVAR=hello
+HOME=/root
+/home/docker/al-apache> vi docker-entrypoint.sh
+/home/docker/al-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen $APACHE_PORT/" /etc/apache2/httpd.conf
+exec "$@"
+/home/docker/al-apache> cat Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN apk add apache2
+
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+/home/docker/al-apache> vi Dockerfile
+/home/docker/al-apache> cat Dockerfile
+FROM alpine:3.9
+RUN apk update
+RUN apk add apache2
+
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENV APACHE_PORT 80
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+/home/docker/al-apache> docker build -t al-apache:latest -t al-apache:3 .
+Sending build context to Docker daemon  3.072kB
+Step 1/8 : FROM alpine:3.9
+ ---> caf27325b298
+Step 2/8 : RUN apk update
+ ---> Using cache
+ ---> 12129d60f758
+Step 3/8 : RUN apk add apache2
+ ---> Using cache
+ ---> 39fc402bb681
+Step 4/8 : COPY docker-entrypoint.sh /bin
+ ---> f41607c425ce
+Step 5/8 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Running in 4c7a13a99746
+ ---> ccae7f6df0d5
+Removing intermediate container 4c7a13a99746
+Step 6/8 : ENV APACHE_PORT 80
+ ---> Running in e92fdc8c126e
+ ---> 36508e00cea5
+Removing intermediate container e92fdc8c126e
+Step 7/8 : ENTRYPOINT docker-entrypoint.sh
+ ---> Running in ce6cade16b21
+ ---> 58e7f166fc4d
+Removing intermediate container ce6cade16b21
+Step 8/8 : CMD httpd -D FOREGROUND
+ ---> Running in 9bfe023b97b2
+ ---> 3ceae2ee17c2
+Removing intermediate container 9bfe023b97b2
+Successfully built 3ceae2ee17c2
+Successfully tagged al-apache:latest
+Successfully tagged al-apache:3
+/home/docker/al-apache> docker image history al-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+3ceae2ee17c2        14 seconds ago      /bin/sh -c #(nop)  CMD ["httpd" "-D" "FORE...   0B
+58e7f166fc4d        14 seconds ago      /bin/sh -c #(nop)  ENTRYPOINT ["docker-ent...   0B
+36508e00cea5        15 seconds ago      /bin/sh -c #(nop)  ENV APACHE_PORT=80           0B
+ccae7f6df0d5        15 seconds ago      /bin/sh -c chmod +x /bin/docker-entrypoint.sh   86B
+f41607c425ce        16 seconds ago      /bin/sh -c #(nop) COPY file:c407fa89d9371f...   86B
+39fc402bb681        17 hours ago        /bin/sh -c apk add apache2                      3.59MB
+12129d60f758        19 hours ago        /bin/sh -c apk update                           1.31MB
+caf27325b298        4 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:2a1fc9351afe356...   5.53MB
+/home/docker/al-apache> docker container run -d -e APACHE_PORT=9999 -p 9090:9999 al-apache
+1bcc9758498c8e50b4d202043588f8814a5b9faeb75c38761b7dfcc3326bef3d
+docker: Error response from daemon: driver failed programming external connectivity on endpoint sad_curie (ec95556995c9fec9199e98639b05e802eddd3b4052f571b0d37228f1c1cdbfb8): Bind for 0.0.0.0:9090 failed: port is already allocated.
+/home/docker/al-apache> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+216b5465d6ba        al-apache:2                                                      "docker-entrypoint..."   17 hours ago        Up 17 hours         0.0.0.0:9099->8080/tcp                                               serene_chandrasekhar
+2612d3271c5f        app:1                                                            "/bin/sh -c 'httpd..."   19 hours ago        Up 19 hours         0.0.0.0:9091->80/tcp                                                 zealous_wiles
+51a3de209869        67e8b76e9d3e                                                     "httpd -D FOREGROUND"    23 hours ago        Up 23 hours         0.0.0.0:9090->80/tcp                                                 admiring_swirles
+/home/docker/al-apache> docker container rm -f 216b5465d6ba 2612d3271c5f 51a3de209869
+216b5465d6ba
+2612d3271c5f
+51a3de209869
+/home/docker/al-apache> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+1bcc9758498c8e50b4d202043588f8814a5b9faeb75c38761b7dfcc3326bef3d
+a73b9f009df0dc29d1c07d4110cf046b6d0caad30e7a475a9f04ef8ac89cf494
+31a79a767db8ede48770ab7bb4c7fbb00a28dec94fce957691cefbcf59f6a46a
+
+Total reclaimed space: 13.07kB
+/home/docker/al-apache> docker container run -d -e APACHE_PORT=9999 -p 9090:9999 al-apache
+9f02c9bfd180899112b10b84a6b6ec07241d41f5d15a60e5899db4b01a0d0e95
+/home/docker/al-apache> docker contiainer run -h | grep env
+Flag shorthand -h has been deprecated, please use --help
+/home/docker/al-apache> docker contiainer run --help | grep env
+/home/docker/al-apache> docker contiainer run --help | grep e
+Usage:  docker COMMAND
+A self-sufficient runtime for containers
+      --config string      Location of client config files (default
+                           "/home/docker/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level
+                           ("debug"|"info"|"warn"|"error"|"fatal")
+                           (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default
+                           "/home/docker/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "/home/docker/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "/home/docker/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+Run 'docker COMMAND --help' for more information on a command.
+/home/docker/al-apache> docker contiainer run --help
+
+Usage:  docker COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default
+                           "/home/docker/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level
+                           ("debug"|"info"|"warn"|"error"|"fatal")
+                           (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default
+                           "/home/docker/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "/home/docker/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "/home/docker/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+/home/docker/al-apache> docker container run --help | grep env
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+/home/docker/al-apache> cd /c/Users/Dell\ lap/docker-workshop/
+/c/Users/Dell lap/docker-workshop> mkdir mar4
+/c/Users/Dell lap/docker-workshop> cd mar4
+/c/Users/Dell lap/docker-workshop/mar4> cp -r ~/al-apache/ ~/app/ .
+/c/Users/Dell lap/docker-workshop/mar4> ls
+al-apache  app
+/c/Users/Dell lap/docker-workshop/mar4>
