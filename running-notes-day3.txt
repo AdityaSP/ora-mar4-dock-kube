@@ -1717,3 +1717,17 @@ fee600aa3189eaf874906b1d8e6b87009f8c932c1ec86de8dd72e67899d0a8c0
             "IPAddress": "",
                     "IPAddress": "172.19.0.4",
 /home/docker/al-apache>
+------------------------------------------------------------------------------
+/home/docker/al-apache> docker container run -d --name w5 --ip 172.19.0.10 --network w2-w3-net nginx:alpine
+8e53ff872375d6dc4febeb01ffb2a3e61b65f06485f5fc5948eeea5bda8aeca0
+docker: Error response from daemon: user specified IP address is supported only when connecting to networks with user configured subnets.
+/home/docker/al-apache> docker container rm -f w5
+w5
+/home/docker/al-apache> docker network create mynet --subnet 172.50.0.0/16 --gateway 172.50.0.1
+99d50b79c5f74d14b3e0c995945daf550e1add15678faf720e5b6e94bb7735c6
+/home/docker/al-apache> docker container run -d --name w5 --ip 172.50.0.10 --network mynet  nginx:alpine
+2b9336209fbc5de22d37e9cd41e7b3e24285d5c4c8d84f2b6b45acbb4a7573b2
+/home/docker/al-apache> docker container inspect w5 | grep -i ipaddress                     "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.50.0.10",
+/home/docker/al-apache>
