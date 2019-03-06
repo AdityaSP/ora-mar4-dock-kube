@@ -892,3 +892,828 @@ CMD ["httpd", "-D", "FOREGROUND"]
 access.log  error.log
 /tmp/apachelogs>
 
+-----------------------------------------------------------------------------------
+/home/docker/al-apache> docker container run -d --name w1 nginx:alpine
+4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc
+/home/docker/al-apache> docker container run -d --name w2 nginx:alpine
+64759746370dc9b4d78a14a50d9746adfea66ad0e5e133e534a03a65680adae3
+/home/docker/al-apache> docker container run -d --name w3 nginx:alpine
+cb3366a97e1756e9809fd358ed9e3aeb951a0b1ba57a42c914a6c9de22812fe4
+/home/docker/al-apache> docker container inspect w1
+[
+    {
+        "Id": "4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc",
+        "Created": "2019-03-06T06:37:31.646674707Z",
+        "Path": "nginx",
+        "Args": [
+            "-g",
+            "daemon off;"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 15449,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-03-06T06:37:32.244043816Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:b411e34b46062a919a607ea1cf0455c6bec38c3ce8524fc3332833396c03666d",
+        "ResolvConfPath": "/var/lib/docker/containers/4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc/hostname",
+        "HostsPath": "/var/lib/docker/containers/4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc/hosts",
+        "LogPath": "/var/lib/docker/containers/4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc/4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc-json.log",
+        "Name": "/w1",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/5ead307676c2774b2933b6a0538e09187a110f899775aa8327b5a875319455b2-init/diff:/var/lib/docker/overlay2/d6be3a1ca568f61eef492652305038e1f0cb8f90d148dc4ae433b1026516e42e/diff:/var/lib/docker/overlay2/1a8e0b1e8f313a9c0bc8897de21bfabd43de18e981feba99e986b4a71bfedd40/diff:/var/lib/docker/overlay2/c9cb7fe10e603c1c0a7220a29cfedf2d3559557fe2a59186945920f090d51cdb/diff:/var/lib/docker/overlay2/ff698551cf2ab16f0e445fa2265c0d8fe73b167b40e1d5d8a28927d8e64ca6ac/diff",
+                "MergedDir": "/var/lib/docker/overlay2/5ead307676c2774b2933b6a0538e09187a110f899775aa8327b5a875319455b2/merged",
+                "UpperDir": "/var/lib/docker/overlay2/5ead307676c2774b2933b6a0538e09187a110f899775aa8327b5a875319455b2/diff",
+                "WorkDir": "/var/lib/docker/overlay2/5ead307676c2774b2933b6a0538e09187a110f899775aa8327b5a875319455b2/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "4d1e437c832d",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.15.8"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "ArgsEscaped": true,
+            "Image": "nginx:alpine",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGTERM"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "b4cd8780fc538264576dd540b9a2565be0147b0e5963ed9bd63adf13e8d0755e",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "80/tcp": null
+            },
+            "SandboxKey": "/var/run/docker/netns/b4cd8780fc53",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "6bf16fc2fe509ae7d2a2cf72aee0326900c3761a7bca025dda9f7324109be1b7",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.23",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:17",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "f6e3bcd0d11bdbdbf9295e97ed09baf0bca6a4e829a9aded3f9edab18b20767e",
+                    "EndpointID": "6bf16fc2fe509ae7d2a2cf72aee0326900c3761a7bca025dda9f7324109be1b7",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.23",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:17",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+/home/docker/al-apache> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.23",
+                    "IPAddress": "172.17.0.23",
+/home/docker/al-apache> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.24",
+                    "IPAddress": "172.17.0.24",
+/home/docker/al-apache> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.25",
+                    "IPAddress": "172.17.0.25",
+/home/docker/al-apache> docker container exec w1 ping -c2 172.17.0.24
+PING 172.17.0.24 (172.17.0.24): 56 data bytes
+64 bytes from 172.17.0.24: seq=0 ttl=64 time=0.274 ms
+64 bytes from 172.17.0.24: seq=1 ttl=64 time=0.097 ms
+
+--- 172.17.0.24 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.097/0.185/0.274 ms
+/home/docker/al-apache> docker container exec w1 ping -c2 172.17.0.25
+PING 172.17.0.25 (172.17.0.25): 56 data bytes
+64 bytes from 172.17.0.25: seq=0 ttl=64 time=0.189 ms
+64 bytes from 172.17.0.25: seq=1 ttl=64 time=0.110 ms
+
+--- 172.17.0.25 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.110/0.149/0.189 ms
+/home/docker/al-apache> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+f6e3bcd0d11b        bridge              bridge              local
+f09381e2f190        host                host                local
+9cce334a36a7        none                null                local
+/home/docker/al-apache> docker network create w1-w2-net
+40bee60942dc74325998a28f215b0c42bd5fc088f4fb59fb12fd76b56c27823b
+/home/docker/al-apache> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+f6e3bcd0d11b        bridge              bridge              local
+f09381e2f190        host                host                local
+9cce334a36a7        none                null                local
+40bee60942dc        w1-w2-net           bridge              local
+/home/docker/al-apache> docker network inspect w1-w2-net
+[
+    {
+        "Name": "w1-w2-net",
+        "Id": "40bee60942dc74325998a28f215b0c42bd5fc088f4fb59fb12fd76b56c27823b",
+        "Created": "2019-03-06T06:45:13.109799844Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+/home/docker/al-apache> docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "f6e3bcd0d11bdbdbf9295e97ed09baf0bca6a4e829a9aded3f9edab18b20767e",
+        "Created": "2019-03-05T04:08:40.657702505Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "12902ebc469dd73745067b339047792c8d9b9c43b3f7159466a1cc2a5a4a554a": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-fpjk6_myspace_e30b4f05-30ee-11e9-b08f-080027326ca6_7",
+                "EndpointID": "107f8a2eae55b5cd2d5824bf011207742e7658c9e8500206062e0e4536b708ab",
+                "MacAddress": "02:42:ac:11:00:0c",
+                "IPv4Address": "172.17.0.12/16",
+                "IPv6Address": ""
+            },
+            "13fd0dbbeb4a6eaf7aa79cecb1b1af2fb44414e3bc1620a18ab78fb85f23b9c1": {
+                "Name": "k8s_POD_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "9a4f3bc21ef540bd475f115aacf5ca88ff9764a7101e762bbd736e6736229b90",
+                "MacAddress": "02:42:ac:11:00:10",
+                "IPv4Address": "172.17.0.16/16",
+                "IPv6Address": ""
+            },
+            "1c239b3b390aff29a3cd1baa3c3cd062f94aaa8fd199abfd159870807d410bd3": {
+                "Name": "k8s_POD_hpa-example-797dfdbc87-c7xc5_default_56ad03f4-3be1-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "8aacb3cdfae70833693fb0a3bb6dd04669708aaaeb3a055fea79c7c00a1b063b",
+                "MacAddress": "02:42:ac:11:00:0e",
+                "IPv4Address": "172.17.0.14/16",
+                "IPv6Address": ""
+            },
+            "1d73831e9abbb8428693dc23b8f301c1269dac65b9d0086711609f70edb0452e": {
+                "Name": "k8s_POD_heapster-546c9964c6-2w8ld_kube-system_ac314ae9-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "621db230fbe2e10b1153b0812096ea1b92bf4220bf254802dd59dcc3c106ed8f",
+                "MacAddress": "02:42:ac:11:00:07",
+                "IPv4Address": "172.17.0.7/16",
+                "IPv6Address": ""
+            },
+            "267daea59a6ae99968d2812c034710f5632b68451d339ce0fe0ced045ebd23e7": {
+                "Name": "k8s_POD_heapster-xnbjb_kube-system_aafb3c7c-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "900eb76066dd038899e26bb2f31ca6701ac9cdb88ef9a91e3fa6b61641bb9912",
+                "MacAddress": "02:42:ac:11:00:12",
+                "IPv4Address": "172.17.0.18/16",
+                "IPv6Address": ""
+            },
+            "30ae2186fa8b35f014d1c60a3803281c2a2ccece7e3d36e64d15414c888fb85e": {
+                "Name": "k8s_POD_metrics-server-bb9ffc6b8-c4bsh_kube-system_ac742fe8-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "d1db3426f08c544d31ffcb0efd8995e74e6cdde7bcda7667daaf22629d25f6dd",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "3ba54da80704071788f291cf6691ff11ff295fcdd38a12105f8d191b890321e1": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-l4q5p_myspace_e30eab51-30ee-11e9-b08f-080027326ca6_7",
+                "EndpointID": "9d62cf3b899ca9d7d0488656e79727f8ac8d2a9b9fcea036b5adb00533f32d0d",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "403ee41416e415172ca042351433d8f9cbecd79f3485bf6c96da0d432f43a302": {
+                "Name": "k8s_POD_wise-molly-mynginx-6bbc495554-xtzj2_default_26dfc17c-3c11-11e9-a9d7-080027326ca6_0",
+                "EndpointID": "3cfc46fceeaa681baa290274503487570f894161b2281e2614270ee2e430dd34",
+                "MacAddress": "02:42:ac:11:00:0d",
+                "IPv4Address": "172.17.0.13/16",
+                "IPv6Address": ""
+            },
+            "4375f9fc5ad687b45deb32d7223e752031294c5b158e9649016320acd7dbdf07": {
+                "Name": "k8s_POD_tiller-deploy-5b7c59888b-6rbgl_kube-system_42cc5a34-3c10-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "3cc6c39bd7a0b643309d0ff6ca866d6308ae2fb68804763698baed2266f39ee6",
+                "MacAddress": "02:42:ac:11:00:0a",
+                "IPv4Address": "172.17.0.10/16",
+                "IPv6Address": ""
+            },
+            "4bf7c6ba4fca944a679c5a9530336935e7a6c2bb03da03fbfe277e8fcc52055e": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-45z5n_myspace_7c38d53f-30ef-11e9-b08f-080027326ca6_7",
+                "EndpointID": "03196cd54a3ff224d56dbe02b4a03e1126197299676114ba6b59fe7fdd8b4537",
+                "MacAddress": "02:42:ac:11:00:15",
+                "IPv4Address": "172.17.0.21/16",
+                "IPv6Address": ""
+            },
+            "4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc": {
+                "Name": "w1",
+                "EndpointID": "6bf16fc2fe509ae7d2a2cf72aee0326900c3761a7bca025dda9f7324109be1b7",
+                "MacAddress": "02:42:ac:11:00:17",
+                "IPv4Address": "172.17.0.23/16",
+                "IPv6Address": ""
+            },
+            "64759746370dc9b4d78a14a50d9746adfea66ad0e5e133e534a03a65680adae3": {
+                "Name": "w2",
+                "EndpointID": "699877f02014f77c494bd6eb0b0e5d0e96a2148e7cd205b3dee9837aebed9ec2",
+                "MacAddress": "02:42:ac:11:00:18",
+                "IPv4Address": "172.17.0.24/16",
+                "IPv6Address": ""
+            },
+            "7aaff9cce988cdeedd11254dfc2b2a27c3ec4d34d9667b0f9665f5a9c0a2683c": {
+                "Name": "k8s_POD_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "665c7b01455b856d7dd2fa3130085a8ac1dbe53e8dd6ddda1a13f61612def636",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "7d905c37153d5ff1de6912688c9e539a1214708230ae796796a5095ccf16da44": {
+                "Name": "k8s_POD_kubernetes-dashboard-77d8b98585-9cffv_kube-system_aae2ad11-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "ddce3175962278aa5f99cde00ea277757914768388f9d9873254d9050be8e9f0",
+                "MacAddress": "02:42:ac:11:00:16",
+                "IPv4Address": "172.17.0.22/16",
+                "IPv6Address": ""
+            },
+            "7f009b925191d912b277137c3c839ba91a3cdcc094a00f1708c616ec01735ec4": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-8snhv_myspace_7c06bfcb-30ef-11e9-b08f-080027326ca6_7",
+                "EndpointID": "54d38f57a5353ef53adad4979c781e4537bf6cfe5c073905acbcaee23f841e3f",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            },
+            "7fc0bc01f6b340f36dc242b34f0f162cca81f287d1ed2d4ad8afc5031c41cd0e": {
+                "Name": "k8s_POD_web-0_default_8a01e78a-3bff-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "b7ca1b3f7e5e763980e7bc494d578068bbb1ab146b9d970df11bcf5cfd3b7eb7",
+                "MacAddress": "02:42:ac:11:00:08",
+                "IPv4Address": "172.17.0.8/16",
+                "IPv6Address": ""
+            },
+            "98ca4fcd39362064a9809dfbc94956c00f6ebc9e31752f477e7a603182bceabb": {
+                "Name": "k8s_POD_monitoring-grafana-65757b9656-h4fbs_kube-system_abcaee65-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "9597b1540953c6d9bd1bd45fc47d54dee97456ae2a149bd452480ffdb123a3ea",
+                "MacAddress": "02:42:ac:11:00:0b",
+                "IPv4Address": "172.17.0.11/16",
+                "IPv6Address": ""
+            },
+            "9dc99f6df98c667a027779ed56508cf68d5015c53782b37493c127a88c4b57d6": {
+                "Name": "k8s_POD_nginx-ingress-controller-zjd74_kube-system_ab42b3da-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "0bf1ab1b1b230ba4d8b72f3a2b0b194778b34400bf32d84c6d77e6a50a4f6bf3",
+                "MacAddress": "02:42:ac:11:00:14",
+                "IPv4Address": "172.17.0.20/16",
+                "IPv6Address": ""
+            },
+            "a68ec9c13e5de4f4f741bb69721d19c8237b3535509f38a9e5ac5da349284974": {
+                "Name": "k8s_POD_web-1_default_f2ca7d1e-3c01-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "a0b7b3ff999e9fe365cc0836dee18815d143b967b6e2d6a5c982f275ee9ca7eb",
+                "MacAddress": "02:42:ac:11:00:09",
+                "IPv4Address": "172.17.0.9/16",
+                "IPv6Address": ""
+            },
+            "ace245ec7b6fe2cd0a6b368c08a9d5633fbf5d1ab2766641ba34fc2b6824dc68": {
+                "Name": "k8s_POD_monitoring-influxdb-66946c9f58-h5lhw_kube-system_abf955f0-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "14ab54e5d1e80e8cf4893219494c28edfc83ff17a7646c5d3eda5c4f4c9ad9e6",
+                "MacAddress": "02:42:ac:11:00:13",
+                "IPv4Address": "172.17.0.19/16",
+                "IPv6Address": ""
+            },
+            "b1f5b4398fdc50121031cba0e3e9e3c9b81d6fedb4faab4e5404638479ae8dfe": {
+                "Name": "k8s_POD_prometheus-deployment-79c7cf44fc-6bkz4_monitoring_add0d617-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "7da7e617f6a664f69f0cbc94f25b04516b14fe875e211d3baade35c5735650c2",
+                "MacAddress": "02:42:ac:11:00:11",
+                "IPv4Address": "172.17.0.17/16",
+                "IPv6Address": ""
+            },
+            "cb3366a97e1756e9809fd358ed9e3aeb951a0b1ba57a42c914a6c9de22812fe4": {
+                "Name": "w3",
+                "EndpointID": "5b0a10793331c3c639a4789f9c0e0e5cf72f9435600874e8bdcb53748bd04be8",
+                "MacAddress": "02:42:ac:11:00:19",
+                "IPv4Address": "172.17.0.25/16",
+                "IPv6Address": ""
+            },
+            "e9974401995c4878ed1c3cd01855e6fe018f545546327ffb90ca31bb4fc4f792": {
+                "Name": "k8s_POD_web-2_default_f3f91763-3c01-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "e2067d04a2ea10f532a49859933934a56169d4136b413bfdd7ddc57d2a0f975e",
+                "MacAddress": "02:42:ac:11:00:0f",
+                "IPv4Address": "172.17.0.15/16",
+                "IPv6Address": ""
+            },
+            "eb9ff490eebac2ff52d6de538b3c29ccdd59b0fcb45dbe385cb74430e3d7eb26": {
+                "Name": "k8s_POD_default-http-backend-cvzhd_kube-system_ab6b020b-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "ea7ecbb041a410092589dd9fc498468b468dcde5999207dcf3b1e041e5c36435",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+/home/docker/al-apache>
+/home/docker/al-apache> docker network connect w1-w2-net w1
+/home/docker/al-apache> docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "f6e3bcd0d11bdbdbf9295e97ed09baf0bca6a4e829a9aded3f9edab18b20767e",
+        "Created": "2019-03-05T04:08:40.657702505Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "12902ebc469dd73745067b339047792c8d9b9c43b3f7159466a1cc2a5a4a554a": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-fpjk6_myspace_e30b4f05-30ee-11e9-b08f-080027326ca6_7",
+                "EndpointID": "107f8a2eae55b5cd2d5824bf011207742e7658c9e8500206062e0e4536b708ab",
+                "MacAddress": "02:42:ac:11:00:0c",
+                "IPv4Address": "172.17.0.12/16",
+                "IPv6Address": ""
+            },
+            "13fd0dbbeb4a6eaf7aa79cecb1b1af2fb44414e3bc1620a18ab78fb85f23b9c1": {
+                "Name": "k8s_POD_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "9a4f3bc21ef540bd475f115aacf5ca88ff9764a7101e762bbd736e6736229b90",
+                "MacAddress": "02:42:ac:11:00:10",
+                "IPv4Address": "172.17.0.16/16",
+                "IPv6Address": ""
+            },
+            "1c239b3b390aff29a3cd1baa3c3cd062f94aaa8fd199abfd159870807d410bd3": {
+                "Name": "k8s_POD_hpa-example-797dfdbc87-c7xc5_default_56ad03f4-3be1-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "8aacb3cdfae70833693fb0a3bb6dd04669708aaaeb3a055fea79c7c00a1b063b",
+                "MacAddress": "02:42:ac:11:00:0e",
+                "IPv4Address": "172.17.0.14/16",
+                "IPv6Address": ""
+            },
+            "1d73831e9abbb8428693dc23b8f301c1269dac65b9d0086711609f70edb0452e": {
+                "Name": "k8s_POD_heapster-546c9964c6-2w8ld_kube-system_ac314ae9-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "621db230fbe2e10b1153b0812096ea1b92bf4220bf254802dd59dcc3c106ed8f",
+                "MacAddress": "02:42:ac:11:00:07",
+                "IPv4Address": "172.17.0.7/16",
+                "IPv6Address": ""
+            },
+            "267daea59a6ae99968d2812c034710f5632b68451d339ce0fe0ced045ebd23e7": {
+                "Name": "k8s_POD_heapster-xnbjb_kube-system_aafb3c7c-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "900eb76066dd038899e26bb2f31ca6701ac9cdb88ef9a91e3fa6b61641bb9912",
+                "MacAddress": "02:42:ac:11:00:12",
+                "IPv4Address": "172.17.0.18/16",
+                "IPv6Address": ""
+            },
+            "30ae2186fa8b35f014d1c60a3803281c2a2ccece7e3d36e64d15414c888fb85e": {
+                "Name": "k8s_POD_metrics-server-bb9ffc6b8-c4bsh_kube-system_ac742fe8-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "d1db3426f08c544d31ffcb0efd8995e74e6cdde7bcda7667daaf22629d25f6dd",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "3ba54da80704071788f291cf6691ff11ff295fcdd38a12105f8d191b890321e1": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-l4q5p_myspace_e30eab51-30ee-11e9-b08f-080027326ca6_7",
+                "EndpointID": "9d62cf3b899ca9d7d0488656e79727f8ac8d2a9b9fcea036b5adb00533f32d0d",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "403ee41416e415172ca042351433d8f9cbecd79f3485bf6c96da0d432f43a302": {
+                "Name": "k8s_POD_wise-molly-mynginx-6bbc495554-xtzj2_default_26dfc17c-3c11-11e9-a9d7-080027326ca6_0",
+                "EndpointID": "3cfc46fceeaa681baa290274503487570f894161b2281e2614270ee2e430dd34",
+                "MacAddress": "02:42:ac:11:00:0d",
+                "IPv4Address": "172.17.0.13/16",
+                "IPv6Address": ""
+            },
+            "4375f9fc5ad687b45deb32d7223e752031294c5b158e9649016320acd7dbdf07": {
+                "Name": "k8s_POD_tiller-deploy-5b7c59888b-6rbgl_kube-system_42cc5a34-3c10-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "3cc6c39bd7a0b643309d0ff6ca866d6308ae2fb68804763698baed2266f39ee6",
+                "MacAddress": "02:42:ac:11:00:0a",
+                "IPv4Address": "172.17.0.10/16",
+                "IPv6Address": ""
+            },
+            "4bf7c6ba4fca944a679c5a9530336935e7a6c2bb03da03fbfe277e8fcc52055e": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-45z5n_myspace_7c38d53f-30ef-11e9-b08f-080027326ca6_7",
+                "EndpointID": "03196cd54a3ff224d56dbe02b4a03e1126197299676114ba6b59fe7fdd8b4537",
+                "MacAddress": "02:42:ac:11:00:15",
+                "IPv4Address": "172.17.0.21/16",
+                "IPv6Address": ""
+            },
+            "4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc": {
+                "Name": "w1",
+                "EndpointID": "6bf16fc2fe509ae7d2a2cf72aee0326900c3761a7bca025dda9f7324109be1b7",
+                "MacAddress": "02:42:ac:11:00:17",
+                "IPv4Address": "172.17.0.23/16",
+                "IPv6Address": ""
+            },
+            "64759746370dc9b4d78a14a50d9746adfea66ad0e5e133e534a03a65680adae3": {
+                "Name": "w2",
+                "EndpointID": "699877f02014f77c494bd6eb0b0e5d0e96a2148e7cd205b3dee9837aebed9ec2",
+                "MacAddress": "02:42:ac:11:00:18",
+                "IPv4Address": "172.17.0.24/16",
+                "IPv6Address": ""
+            },
+            "7aaff9cce988cdeedd11254dfc2b2a27c3ec4d34d9667b0f9665f5a9c0a2683c": {
+                "Name": "k8s_POD_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "665c7b01455b856d7dd2fa3130085a8ac1dbe53e8dd6ddda1a13f61612def636",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "7d905c37153d5ff1de6912688c9e539a1214708230ae796796a5095ccf16da44": {
+                "Name": "k8s_POD_kubernetes-dashboard-77d8b98585-9cffv_kube-system_aae2ad11-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "ddce3175962278aa5f99cde00ea277757914768388f9d9873254d9050be8e9f0",
+                "MacAddress": "02:42:ac:11:00:16",
+                "IPv4Address": "172.17.0.22/16",
+                "IPv6Address": ""
+            },
+            "7f009b925191d912b277137c3c839ba91a3cdcc094a00f1708c616ec01735ec4": {
+                "Name": "k8s_POD_helloworld-dep-5cdb68cc76-8snhv_myspace_7c06bfcb-30ef-11e9-b08f-080027326ca6_7",
+                "EndpointID": "54d38f57a5353ef53adad4979c781e4537bf6cfe5c073905acbcaee23f841e3f",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            },
+            "7fc0bc01f6b340f36dc242b34f0f162cca81f287d1ed2d4ad8afc5031c41cd0e": {
+                "Name": "k8s_POD_web-0_default_8a01e78a-3bff-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "b7ca1b3f7e5e763980e7bc494d578068bbb1ab146b9d970df11bcf5cfd3b7eb7",
+                "MacAddress": "02:42:ac:11:00:08",
+                "IPv4Address": "172.17.0.8/16",
+                "IPv6Address": ""
+            },
+            "98ca4fcd39362064a9809dfbc94956c00f6ebc9e31752f477e7a603182bceabb": {
+                "Name": "k8s_POD_monitoring-grafana-65757b9656-h4fbs_kube-system_abcaee65-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "9597b1540953c6d9bd1bd45fc47d54dee97456ae2a149bd452480ffdb123a3ea",
+                "MacAddress": "02:42:ac:11:00:0b",
+                "IPv4Address": "172.17.0.11/16",
+                "IPv6Address": ""
+            },
+            "9dc99f6df98c667a027779ed56508cf68d5015c53782b37493c127a88c4b57d6": {
+                "Name": "k8s_POD_nginx-ingress-controller-zjd74_kube-system_ab42b3da-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "0bf1ab1b1b230ba4d8b72f3a2b0b194778b34400bf32d84c6d77e6a50a4f6bf3",
+                "MacAddress": "02:42:ac:11:00:14",
+                "IPv4Address": "172.17.0.20/16",
+                "IPv6Address": ""
+            },
+            "a68ec9c13e5de4f4f741bb69721d19c8237b3535509f38a9e5ac5da349284974": {
+                "Name": "k8s_POD_web-1_default_f2ca7d1e-3c01-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "a0b7b3ff999e9fe365cc0836dee18815d143b967b6e2d6a5c982f275ee9ca7eb",
+                "MacAddress": "02:42:ac:11:00:09",
+                "IPv4Address": "172.17.0.9/16",
+                "IPv6Address": ""
+            },
+            "ace245ec7b6fe2cd0a6b368c08a9d5633fbf5d1ab2766641ba34fc2b6824dc68": {
+                "Name": "k8s_POD_monitoring-influxdb-66946c9f58-h5lhw_kube-system_abf955f0-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "14ab54e5d1e80e8cf4893219494c28edfc83ff17a7646c5d3eda5c4f4c9ad9e6",
+                "MacAddress": "02:42:ac:11:00:13",
+                "IPv4Address": "172.17.0.19/16",
+                "IPv6Address": ""
+            },
+            "b1f5b4398fdc50121031cba0e3e9e3c9b81d6fedb4faab4e5404638479ae8dfe": {
+                "Name": "k8s_POD_prometheus-deployment-79c7cf44fc-6bkz4_monitoring_add0d617-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "7da7e617f6a664f69f0cbc94f25b04516b14fe875e211d3baade35c5735650c2",
+                "MacAddress": "02:42:ac:11:00:11",
+                "IPv4Address": "172.17.0.17/16",
+                "IPv6Address": ""
+            },
+            "cb3366a97e1756e9809fd358ed9e3aeb951a0b1ba57a42c914a6c9de22812fe4": {
+                "Name": "w3",
+                "EndpointID": "5b0a10793331c3c639a4789f9c0e0e5cf72f9435600874e8bdcb53748bd04be8",
+                "MacAddress": "02:42:ac:11:00:19",
+                "IPv4Address": "172.17.0.25/16",
+                "IPv6Address": ""
+            },
+            "e9974401995c4878ed1c3cd01855e6fe018f545546327ffb90ca31bb4fc4f792": {
+                "Name": "k8s_POD_web-2_default_f3f91763-3c01-11e9-a9d7-080027326ca6_2",
+                "EndpointID": "e2067d04a2ea10f532a49859933934a56169d4136b413bfdd7ddc57d2a0f975e",
+                "MacAddress": "02:42:ac:11:00:0f",
+                "IPv4Address": "172.17.0.15/16",
+                "IPv6Address": ""
+            },
+            "eb9ff490eebac2ff52d6de538b3c29ccdd59b0fcb45dbe385cb74430e3d7eb26": {
+                "Name": "k8s_POD_default-http-backend-cvzhd_kube-system_ab6b020b-2f94-11e9-8d17-080027326ca6_9",
+                "EndpointID": "ea7ecbb041a410092589dd9fc498468b468dcde5999207dcf3b1e041e5c36435",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+/home/docker/al-apache>
+/home/docker/al-apache> docker network connect w1-w2-net w1
+Error response from daemon: endpoint with name w1 already exists in network w1-w2-net
+/home/docker/al-apache> docker network inspect w1 | grep -i ipaddress
+Error: No such network: w1
+/home/docker/al-apache> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.23",
+                    "IPAddress": "172.17.0.23",
+                    "IPAddress": "172.18.0.2",
+/home/docker/al-apache> docker network disconnect bridge w1
+/home/docker/al-apache> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+/home/docker/al-apache> docker network inspect w1-w2-net
+[
+    {
+        "Name": "w1-w2-net",
+        "Id": "40bee60942dc74325998a28f215b0c42bd5fc088f4fb59fb12fd76b56c27823b",
+        "Created": "2019-03-06T06:45:13.109799844Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "4d1e437c832d1f3224bcdcaffba5ab9a0e2a747ebf826f6fffe9cc9cb7f815fc": {
+                "Name": "w1",
+                "EndpointID": "6c331e304bc4a5198ecdf3f4d4f05a0cccfee79049fbb2272d6a36dcaea93597",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+/home/docker/al-apache> docker network disconnect bridge w2
+/home/docker/al-apache> docker network connect w1-w2-net w2
+/home/docker/al-apache> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+/home/docker/al-apache> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+/home/docker/al-apache> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.25",
+                    "IPAddress": "172.17.0.25",
+/home/docker/al-apache> docker container exec w1 ping -c2 172.18.0.3
+PING 172.18.0.3 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.684 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.150 ms
+
+--- 172.18.0.3 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.150/0.417/0.684 ms
+/home/docker/al-apache> docker container exec w1 ping -c2 172.17.0.25
+PING 172.17.0.25 (172.17.0.25): 56 data bytes
+^C
+/home/docker/al-apache> docker network create w2-w3-net
+aa195a4ec437b56a6db25586172e27ad5abb06d9909e853f4726ee4f75ca8c2e
+/home/docker/al-apache> docker network disconnect bridge w3
+/home/docker/al-apache> docker network connect w2-w3-net w3
+/home/docker/al-apache> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.19.0.2",
+/home/docker/al-apache> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+/home/docker/al-apache> docker network connect w2-w3-net w2
+/home/docker/al-apache>
+/home/docker/al-apache> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+/home/docker/al-apache> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+                    "IPAddress": "172.19.0.3",
+/home/docker/al-apache> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.19.0.2",
+/home/docker/al-apache> docker container exec w1 ping -c2 172.18.0.3
+PING 172.18.0.3 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.135 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.155 ms
+
+--- 172.18.0.3 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.135/0.145/0.155 ms
+/home/docker/al-apache> docker container exec w1 ping -c2 w2
+PING w2 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.080 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.186 ms
+
+--- w2 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.080/0.133/0.186 ms
+/home/docker/al-apache> docker container exec w3 ping -c2 w2
+PING w2 (172.19.0.3): 56 data bytes
+64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.127 ms
+64 bytes from 172.19.0.3: seq=1 ttl=64 time=0.164 ms
+
+--- w2 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.127/0.145/0.164 ms
+/home/docker/al-apache> docker container exec w3 ping -c2 w1
+ping: bad address 'w1'
+/home/docker/al-apache> docker container run -d --name w4 --network w2-w3-net nginx:alpine
+fee600aa3189eaf874906b1d8e6b87009f8c932c1ec86de8dd72e67899d0a8c0
+/home/docker/al-apache> docker container inspect w4 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.19.0.4",
+/home/docker/al-apache>
