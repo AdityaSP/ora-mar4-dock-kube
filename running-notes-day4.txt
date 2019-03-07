@@ -1,0 +1,222 @@
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl apply -f rc-helloworld.yml                                                            
+replicationcontroller "helloworld-controller" created                                           
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get rc                                                                                
+NAME                    DESIRED   CURRENT   READY     AGE                                       
+helloworld-controller   2         2         2         13s                                       
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels                                                                
+NAME                          READY     STATUS    RESTARTS   AGE       LABELS                   
+helloworld-controller-q2zgz   1/1       Running   0          25s       app=helloworld           
+my-nginx                      1/1       Running   0          6m        app=helloworld           
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl delete pod my-nginx                                                                   
+pod "my-nginx" deleted                                                                          
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels                                                                
+NAME                          READY     STATUS    RESTARTS   AGE       LABELS                   
+helloworld-controller-h4bxw   1/1       Running   0          8s        app=helloworld           
+helloworld-controller-q2zgz   1/1       Running   0          1m        app=helloworld           
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE       
+LABELS                                                                                          
+helloworld-controller-h4bxw   1/1       Running   0          2m        172.17.0.3    minikube   
+app=helloworld                                                                                  
+helloworld-controller-q2zgz   1/1       Running   0          4m        172.17.0.19   minikube   
+app=helloworld                                                                                  
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl apply -f ../pod/pod-helloworld.yml                                                    
+pod "my-nginx" created                                                                          
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS        RESTARTS   AGE       IP            NODE   
+    LABELS                                                                                      
+helloworld-controller-h4bxw   1/1       Running       0          5m        172.17.0.3    minikub
+e   app=helloworld                                                                              
+helloworld-controller-q2zgz   1/1       Running       0          6m        172.17.0.19   minikub
+e   app=helloworld                                                                              
+my-nginx                      0/1       Terminating   0          9s        <none>        minikub
+e   app=helloworld                                                                              
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+Unable to connect to the server: dial tcp 192.168.99.100:8443: connectex: A connection attempt f
+ailed because the connected party did not properly respond after a period of time, or establishe
+d connection failed because connected host has failed to respond.                               
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ                                                                                               
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ                                                                                               
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ                                                                                               
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ                                                                                               
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE       
+LABELS                                                                                          
+helloworld-controller-h4bxw   1/1       Running   1          49m       172.17.0.17   minikube   
+app=helloworld                                                                                  
+helloworld-controller-q2zgz   1/1       Running   1          50m       172.17.0.6    minikube   
+app=helloworld                                                                                  
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl scale rc helloworld-controller --replicas 5                                           
+replicationcontroller "helloworld-controller" scaled                                            
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS              RESTARTS   AGE       IP            N
+ODE       LABELS                                                                                
+helloworld-controller-bsrgp   0/1       ContainerCreating   0          5s        <none>        m
+inikube   app=helloworld                                                                        
+helloworld-controller-h4bxw   1/1       Running             1          50m       172.17.0.17   m
+inikube   app=helloworld                                                                        
+helloworld-controller-kd9rv   0/1       ContainerCreating   0          5s        <none>        m
+inikube   app=helloworld                                                                        
+helloworld-controller-pn844   0/1       ContainerCreating   0          5s        <none>        m
+inikube   app=helloworld                                                                        
+helloworld-controller-q2zgz   1/1       Running             1          51m       172.17.0.6    m
+inikube   app=helloworld                                                                        
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE       
+LABELS                                                                                          
+helloworld-controller-bsrgp   1/1       Running   0          22s       172.17.0.21   minikube   
+app=helloworld                                                                                  
+helloworld-controller-h4bxw   1/1       Running   1          50m       172.17.0.17   minikube   
+app=helloworld                                                                                  
+helloworld-controller-kd9rv   1/1       Running   0          22s       172.17.0.22   minikube   
+app=helloworld                                                                                  
+helloworld-controller-pn844   1/1       Running   0          22s       172.17.0.20   minikube   
+app=helloworld                                                                                  
+helloworld-controller-q2zgz   1/1       Running   1          52m       172.17.0.6    minikube   
+app=helloworld                                                                                  
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl logs helloworld-controller-bsrgp                                                      
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl scale rc helloworld-controller --replicas 2                                           
+replicationcontroller "helloworld-controller" scaled                                            
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS        RESTARTS   AGE       IP            NODE   
+    LABELS                                                                                      
+helloworld-controller-bsrgp   0/1       Terminating   0          3m        172.17.0.21   minikub
+e   app=helloworld                                                                              
+helloworld-controller-h4bxw   1/1       Running       1          54m       172.17.0.17   minikub
+e   app=helloworld                                                                              
+helloworld-controller-kd9rv   0/1       Terminating   0          3m        172.17.0.22   minikub
+e   app=helloworld                                                                              
+helloworld-controller-q2zgz   1/1       Running       1          55m       172.17.0.6    minikub
+e   app=helloworld                                                                              
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl get pods --show-labels -o wide                                                        
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE       
+LABELS                                                                                          
+helloworld-controller-h4bxw   1/1       Running   1          54m       172.17.0.17   minikube   
+app=helloworld                                                                                  
+helloworld-controller-q2zgz   1/1       Running   1          55m       172.17.0.6    minikube   
+app=helloworld                                                                                  
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl describe pod helloworld-controller-h4bxw                                              
+Name:           helloworld-controller-h4bxw                                                     
+Namespace:      default                                                                         
+Node:           minikube/192.168.99.100                                                         
+Start Time:     Thu, 07 Mar 2019 10:12:13 +0530                                                 
+Labels:         app=helloworld                                                                  
+Annotations:    <none>                                                                          
+Status:         Running                                                                         
+IP:             172.17.0.17                                                                     
+Controlled By:  ReplicationController/helloworld-controller                                     
+Containers:                                                                                     
+  nginx:                                                                                        
+    Container ID:   docker://a7a23741809ea94f5bec6f67d6289bb8fd6b2a76f92c3ea6d75ad6274e05b1a9   
+    Image:          nginx:alpine                                                                
+    Image ID:       docker-pullable://nginx@sha256:816a226b57bb45b6388670b15f1adb60d83240857b2a0
+d476dd3f0d8d231799d                                                                             
+    Port:           80/TCP                                                                      
+    State:          Running                                                                     
+      Started:      Thu, 07 Mar 2019 10:59:54 +0530                                             
+    Last State:     Terminated                                                                  
+      Reason:       Completed                                                                   
+      Exit Code:    0                                                                           
+      Started:      Thu, 07 Mar 2019 10:12:14 +0530                                             
+      Finished:     Thu, 07 Mar 2019 10:58:07 +0530                                             
+    Ready:          True                                                                        
+    Restart Count:  1                                                                           
+    Environment:    <none>                                                                      
+    Mounts:                                                                                     
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-448nd (ro)               
+Conditions:                                                                                     
+  Type           Status                                                                         
+  Initialized    True                                                                           
+  Ready          True                                                                           
+  PodScheduled   True                                                                           
+Volumes:                                                                                        
+  default-token-448nd:                                                                          
+    Type:        Secret (a volume populated by a Secret)                                        
+    SecretName:  default-token-448nd                                                            
+    Optional:    false                                                                          
+QoS Class:       BestEffort                                                                     
+Node-Selectors:  <none>                                                                         
+Tolerations:     <none>                                                                         
+Events:                                                                                         
+  Type     Reason                  Age                From               Message                
+  ----     ------                  ----               ----               -------                
+  Normal   Scheduled               1h                 default-scheduler  Successfully assigned h
+elloworld-controller-h4bxw to minikube                                                          
+  Normal   SuccessfulMountVolume   1h                 kubelet, minikube  MountVolume.SetUp succe
+eded for volume "default-token-448nd"                                                           
+  Normal   Pulled                  1h                 kubelet, minikube  Container image "nginx:
+alpine" already present on machine                                                              
+  Normal   Created                 1h                 kubelet, minikube  Created container      
+  Normal   Started                 1h                 kubelet, minikube  Started container      
+  Warning  FailedCreatePodSandBox  14m                kubelet, minikube  Failed create pod sandb
+ox.                                                                                             
+  Normal   SandboxChanged          14m (x2 over 15m)  kubelet, minikube  Pod sandbox changed, it
+ will be killed and re-created.                                                                 
+  Normal   SuccessfulMountVolume   12m                kubelet, minikube  MountVolume.SetUp succe
+eded for volume "default-token-448nd"                                                           
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ kubectl describe rc helloworld-controller                                                     
+Name:         helloworld-controller                                                             
+Namespace:    default                                                                           
+Selector:     app=helloworld                                                                    
+Labels:       app=helloworld                                                                    
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Replic
+ationController","metadata":{"annotations":{},"name":"helloworld-controller","namespace":"defaul
+t"},"spec":{"replicas"...                                                                       
+Replicas:     2 current / 2 desired                                                             
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed                                    
+Pod Template:                                                                                   
+  Labels:  app=helloworld                                                                       
+  Containers:                                                                                   
+   nginx:                                                                                       
+    Image:        nginx:alpine                                                                  
+    Port:         80/TCP                                                                        
+    Environment:  <none>                                                                        
+    Mounts:       <none>                                                                        
+  Volumes:        <none>                                                                        
+Events:                                                                                         
+  Type    Reason            Age   From                    Message                               
+  ----    ------            ----  ----                    -------                               
+  Normal  SuccessfulCreate  1h    replication-controller  Created pod: helloworld-controller-q2z
+gz                                                                                              
+  Normal  SuccessfulCreate  1h    replication-controller  Created pod: helloworld-controller-h4b
+xw                                                                                              
+  Normal  SuccessfulDelete  1h    replication-controller  Deleted pod: my-nginx                 
+  Normal  SuccessfulCreate  23m   replication-controller  Created pod: helloworld-controller-bsr
+gp                                                                                              
+  Normal  SuccessfulCreate  23m   replication-controller  Created pod: helloworld-controller-pn8
+44                                                                                              
+  Normal  SuccessfulCreate  23m   replication-controller  Created pod: helloworld-controller-kd9
+rv                                                                                              
+  Normal  SuccessfulDelete  20m   replication-controller  Deleted pod: helloworld-controller-bsr
+gp                                                                                              
+  Normal  SuccessfulDelete  20m   replication-controller  Deleted pod: helloworld-controller-kd9
+rv                                                                                              
+  Normal  SuccessfulDelete  20m   replication-controller  Deleted pod: helloworld-controller-pn8
+44                                                                                              
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)                         
+λ                                                                                               
+                                                                                                
+                                                                                                
