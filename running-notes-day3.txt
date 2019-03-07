@@ -1731,3 +1731,50 @@ w5
             "IPAddress": "",
                     "IPAddress": "172.50.0.10",
 /home/docker/al-apache>
+
+
+
+################################################################################################################################
+###############################################################################################################################
+From WINDOWS COMMAND LINE. I am using cmder here
+################################################################################################################################
+###############################################################################################################################
+
+
+Dell lap@Dell ~/docker-workshop/mar4
+λ git pull https://github.com/AdityaSP/ora-mar4-dock-kube
+fatal: Not a git repository (or any of the parent directories): .git
+Dell lap@Dell ~/docker-workshop/mar4
+λ git clone https://github.com/AdityaSP/ora-mar4-dock-kube
+Cloning into 'ora-mar4-dock-kube'...
+remote: Enumerating objects: 86, done.
+remote: Counting objects: 100% (86/86), done.
+remote: Compressing objects: 100% (77/77), done.
+remote: Total 86 (delta 37), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (86/86), done.
+Dell lap@Dell ~/docker-workshop/mar4
+λ cd ora-mar4-dock-kube/
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube (master)
+λ ls
+al-apache/       docker-command-list.docx  README.md               running-notes-day3.txt
+app/             docker-kube.docx          running-notes.txt       setup.md
+docker-blog.txt  k8s/                      running-notes-day2.txt
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube (master)
+λ cd k8s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ ls
+dep/  pod/  rc/  readme.txt  service/
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ cd pod
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/pod (master)
+λ ls
+pod-helloworld.yml
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/pod (master)
+λ kubectl apply -f pod-helloworld.yml
+pod "my-nginx" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/pod (master)
+λ kubectl get pods
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          2m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/pod (master)
+λ kubectl delete pod my-nginx
