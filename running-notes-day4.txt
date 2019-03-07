@@ -220,3 +220,242 @@ Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s/rc (master)
 λ                                                                                               
                                                                                                 
                                                                                                 
+---------------------------------------------------------
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f dep/dep-helloworld.yml
+deployment "helloworld-dep" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-6n4jw   1/1       Running   0          13s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get deploy "helloworld-dep"
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+helloworld-dep   1         1         1            1           1m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe deploy "helloworld-dep"
+Name:                   helloworld-dep
+Namespace:              default
+CreationTimestamp:      Thu, 07 Mar 2019 11:56:23 +0530
+Labels:                 app=helloworld
+Annotations:            deployment.kubernetes.io/revision=1
+                        kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"helloworld-dep","namespace":"default"},"spec":{"replicas":1...
+Selector:               app=helloworld
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 1 max surge
+Pod Template:
+  Labels:  app=helloworld
+  Containers:
+   web:
+    Image:        nginx:alpine
+    Port:         80/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   helloworld-dep-5cdb68cc76 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  1m    deployment-controller  Scaled up replica set helloworld-dep-5cdb68cc76 to 1
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get replicaset helloworld-dep-5cdb68cc76
+NAME                        DESIRED   CURRENT   READY     AGE
+helloworld-dep-5cdb68cc76   1         1         1         2m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-6n4jw   1/1       Running   0          2m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl scale deploy helloworld-dep --replicas 5
+deployment "helloworld-dep" scaled
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-5j58n   1/1       Running   0          11s
+helloworld-dep-5cdb68cc76-6n4jw   1/1       Running   0          5m
+helloworld-dep-5cdb68cc76-7bbn8   1/1       Running   0          10s
+helloworld-dep-5cdb68cc76-9ldqh   1/1       Running   0          10s
+helloworld-dep-5cdb68cc76-bqjcj   1/1       Running   0          10s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl create -f pod/pod-helloworld.yml
+pod "my-nginx" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-5j58n   1/1       Running   0          44s
+helloworld-dep-5cdb68cc76-6n4jw   1/1       Running   0          5m
+helloworld-dep-5cdb68cc76-7bbn8   1/1       Running   0          43s
+helloworld-dep-5cdb68cc76-9ldqh   1/1       Running   0          43s
+helloworld-dep-5cdb68cc76-bqjcj   1/1       Running   0          43s
+my-nginx                          1/1       Running   0          7s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods --show-labels
+NAME                              READY     STATUS    RESTARTS   AGE       LABELS
+helloworld-dep-5cdb68cc76-5j58n   1/1       Running   0          1m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-6n4jw   1/1       Running   0          6m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-7bbn8   1/1       Running   0          1m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-9ldqh   1/1       Running   0          1m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-bqjcj   1/1       Running   0          1m        app=helloworld,pod-template-hash=1786247732
+my-nginx                          1/1       Running   0          26s       app=helloworld
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout history helloworld-dep
+the server doesn't have a resource type "helloworld-dep"
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout history deploy helloworld-dep
+deployments "helloworld-dep"
+REVISION  CHANGE-CAUSE
+1         <none>
+
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl delete -f dep/dep-helloworld.yml
+deployment "helloworld-dep" deleted
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f dep/dep-helloworld.yml --record
+deployment "helloworld-dep" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout history deploy helloworld-dep
+deployments "helloworld-dep"
+REVISION  CHANGE-CAUSE
+1         kubectl.exe apply --filename=dep/dep-helloworld.yml --record=true
+
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl scale deploy helloworld-dep --replicas 10
+deployment "helloworld-dep" scaled
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout status deploy helloworld-dep
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl set image deploy helloworld-dep web=nginx:latest --record
+deployment "helloworld-dep" image updated
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout status deploy helloworld-dep
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 9 of 10 updated replicas are available...
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get deploy helloworld-dep
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+helloworld-dep   10        10        10           10          6m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-7b64bc55d4-54cb9   1/1       Running   0          1m
+helloworld-dep-7b64bc55d4-6gz4s   1/1       Running   0          51s
+helloworld-dep-7b64bc55d4-7fkcs   1/1       Running   0          1m
+helloworld-dep-7b64bc55d4-7wk2d   1/1       Running   0          59s
+helloworld-dep-7b64bc55d4-cdmbv   1/1       Running   0          1m
+helloworld-dep-7b64bc55d4-d84sm   1/1       Running   0          1m
+helloworld-dep-7b64bc55d4-gsccr   1/1       Running   0          57s
+helloworld-dep-7b64bc55d4-xx769   1/1       Running   0          45s
+helloworld-dep-7b64bc55d4-z2gm2   1/1       Running   0          49s
+helloworld-dep-7b64bc55d4-z79qs   1/1       Running   0          36s
+my-nginx                          1/1       Running   0          9m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe pod helloworld-dep-7b64bc55d4-54cb9 | grep nginx
+    Image:          nginx:latest
+    Image ID:       docker-pullable://nginx@sha256:e2048a115f51d61fa589f5f592f677300f1c122de07904e0ebefe44a6a89da23
+  Normal  Pulled                 1m    kubelet, minikube  Container image "nginx:latest" already present on machine
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout history deploy helloworld-dep
+deployments "helloworld-dep"
+REVISION  CHANGE-CAUSE
+1         kubectl.exe scale deploy helloworld-dep --replicas=10
+2         kubectl.exe set image deploy helloworld-dep web=nginx:latest --record=true
+
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout undo deploy helloworld-dep --to-revision 1
+deployment "helloworld-dep"
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout status deploy helloworld-dep
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 9 of 10 updated replicas are available...
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-2crfr   1/1       Running   0          43s
+helloworld-dep-5cdb68cc76-2sgxw   1/1       Running   0          47s
+helloworld-dep-5cdb68cc76-8w8rl   1/1       Running   0          51s
+helloworld-dep-5cdb68cc76-br9qg   1/1       Running   0          26s
+helloworld-dep-5cdb68cc76-frtfj   1/1       Running   0          48s
+helloworld-dep-5cdb68cc76-qdtmq   1/1       Running   0          51s
+helloworld-dep-5cdb68cc76-qtvtg   1/1       Running   0          41s
+helloworld-dep-5cdb68cc76-r2bv8   1/1       Running   0          18s
+helloworld-dep-5cdb68cc76-v854g   1/1       Running   0          17s
+helloworld-dep-5cdb68cc76-znb7l   1/1       Running   0          28s
+my-nginx                          1/1       Running   0          12m
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe pod helloworld-dep-5cdb68cc76-2crfr | grep nginx
+    Image:          nginx:alpine
+    Image ID:       docker-pullable://nginx@sha256:816a226b57bb45b6388670b15f1adb60d83240857b2a0d476dd3f0d8d231799d
+  Normal  Pulled                 47s   kubelet, minikube  Container image "nginx:alpine" already present on machine
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl rollout history deploy helloworld-dep
+deployments "helloworld-dep"
+REVISION  CHANGE-CAUSE
+2         kubectl.exe set image deploy helloworld-dep web=nginx:latest --record=true
+3         kubectl.exe scale deploy helloworld-dep --replicas=10
+
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
