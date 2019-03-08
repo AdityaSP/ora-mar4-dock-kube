@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: countdown
+spec:
+  template:
+    metadata:
+      name: ping
+    spec:
+      containers:
+      - name: counter
+        image: nginx:alpine
+        command: 
+         - "ping"
+         - "-c20"
+         - "google.com"
+      restartPolicy: Never
