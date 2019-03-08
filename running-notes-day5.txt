@@ -1,0 +1,26 @@
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/pv.yml
+persistentvolume "mysql-pv-volume" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pv
+NAME              CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM     STORAGECLASS
+  REASON    AGE
+mysql-pv-volume   4Gi        RWO            Retain           Available             manual
+            11s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/pvc.yml
+persistentvolumeclaim "mysql-pv-claim" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pvc
+NAME             STATUS    VOLUME            CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+mysql-pv-claim   Bound     mysql-pv-volume   4Gi        RWO            manual         9s
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/mysql.yml w
+error: Unexpected args: [w]
+See 'kubectl apply -h' for help and examples.
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl apply -f pv-pvc/mysql.yml
+deployment "mysql" created
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
