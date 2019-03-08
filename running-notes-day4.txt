@@ -459,3 +459,234 @@ REVISION  CHANGE-CAUSE
 
 Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
 λ
+
+-------------------------------------------------------------------------------------------------------
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe svc hw-svc
+Name:                     hw-svc
+Namespace:                default
+Labels:                   <none>
+Annotations:              kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"hw-svc","namespace":"default"},"spec":{"ports":[{"nodePort":31001,"port":8888,...
+Selector:                 app=helloworld
+Type:                     NodePort
+IP:                       10.96.43.1
+Port:                     <unset>  8888/TCP
+TargetPort:               nginxport/TCP
+NodePort:                 <unset>  31001/TCP
+Endpoints:                172.17.0.22:80,172.17.0.6:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-qdtmq   1/1       Running   0          4h
+helloworld-dep-5cdb68cc76-rrkcn   1/1       Running   0          2h
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+hw-svc       NodePort    10.96.43.1   <none>        8888:31001/TCP   2h
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP          85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl exec -it helloworld-dep-5cdb68cc76-qdtmq -- bash
+oci runtime error: exec failed: container_linux.go:265: starting container process caused "exec: \"bash\": executable file not found in $PATH"
+
+command terminated with exit code 126
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl exec -it helloworld-dep-5cdb68cc76-qdtmq -- sh
+/ # bash
+sh: bash: not found
+/ # curl
+sh: curl: not found
+/ # apk update
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/community/x86_64/APKINDEX.tar.gz
+v3.9.2-1-g592d872fb8 [http://dl-cdn.alpinelinux.org/alpine/v3.9/main]
+v3.9.0-90-gf0b6b9da2f [http://dl-cdn.alpinelinux.org/alpine/v3.9/community]
+OK: 9755 distinct packages available
+/ # apk add curl
+(1/5) Installing ca-certificates (20190108-r0)
+(2/5) Installing nghttp2-libs (1.35.1-r0)
+(3/5) Installing libssh2 (1.8.0-r4)
+(4/5) Installing libcurl (7.64.0-r1)
+(5/5) Installing curl (7.64.0-r1)
+Executing busybox-1.29.3-r10.trigger
+Executing ca-certificates-20190108-r0.trigger
+OK: 17 MiB in 34 packages
+/ # curl 10.96.43.1:8888
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+/ # curl db-svc:8888 | head -n 4
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: db-svc
+/ # curl hw-svc:8888 | head -n 4
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   612  100   612    0     0    573      0  0:00:01  0:00<!DOCTYPE html>  0
+:<html>
+0<head>
+1<title>Welcome to nginx!</title>
+ --:--:--   573
+/ # curl 10.96.43.1:8888 | head -n4
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0^C
+/ # cat /etc/resolv.conf
+nameserver 10.96.0.10
+search default.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+/ # exit
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+hw-svc       NodePort    10.96.43.1   <none>        8888:31001/TCP   2h
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP          85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get svc -n kube-system
+NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+default-http-backend   NodePort    10.103.225.247   <none>        80:30001/TCP        85d
+heapster               ClusterIP   10.105.175.217   <none>        80/TCP              85d
+kube-dns               ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP       85d
+kubernetes-dashboard   NodePort    10.103.11.130    <none>        80:30000/TCP        85d
+metrics-server         ClusterIP   10.109.22.160    <none>        443/TCP             84d
+monitoring-grafana     NodePort    10.109.41.42     <none>        80:30002/TCP        85d
+monitoring-influxdb    ClusterIP   10.103.96.251    <none>        8083/TCP,8086/TCP   85d
+tiller-deploy          ClusterIP   10.96.170.66     <none>        44134/TCP           20d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe svc kube-dns
+Error from server (NotFound): services "kube-dns" not found
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl describe svc kube-dns -n kube-system
+Name:              kube-dns
+Namespace:         kube-system
+Labels:            addonmanager.kubernetes.io/mode=Reconcile
+                   k8s-app=kube-dns
+                   kubernetes.io/name=KubeDNS
+Annotations:       kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"kube-dns","kubernet...
+Selector:          k8s-app=kube-dns
+Type:              ClusterIP
+IP:                10.96.0.10
+Port:              dns  53/UDP
+TargetPort:        53/UDP
+Endpoints:         172.17.0.19:53
+Port:              dns-tcp  53/TCP
+TargetPort:        53/TCP
+Endpoints:         172.17.0.19:53
+Session Affinity:  None
+Events:            <none>
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods -n kube-system -o wide
+NAME                                    READY     STATUS    RESTARTS   AGE       IP
+  NODE
+default-http-backend-cvzhd              1/1       Running   31         21d       172.17.0.16
+  minikube
+heapster-546c9964c6-2w8ld               1/1       Running   11         21d       172.17.0.13
+  minikube
+heapster-xnbjb                          1/1       Running   11         21d       172.17.0.14
+  minikube
+influxdb-grafana-tx55c                  2/2       Running   22         21d       172.17.0.10
+  minikube
+kube-addon-manager-minikube             1/1       Running   12         85d       192.168.99.100
+  minikube
+kube-dns-54cccfbdf8-f5fbr               3/3       Running   42         21d       172.17.0.19
+  minikube
+kubernetes-dashboard-77d8b98585-9cffv   1/1       Running   18         21d       172.17.0.15
+  minikube
+metrics-server-bb9ffc6b8-c4bsh          1/1       Running   12         21d       172.17.0.8
+  minikube
+monitoring-grafana-65757b9656-h4fbs     1/1       Running   11         21d       172.17.0.3
+  minikube
+monitoring-influxdb-66946c9f58-h5lhw    1/1       Running   11         21d       172.17.0.4
+  minikube
+nginx-ingress-controller-zjd74          1/1       Running   99         21d       172.17.0.18
+  minikube
+tiller-deploy-5b7c59888b-6rbgl          1/1       Running   19         6d        172.17.0.12
+  minikube
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-qdtmq   1/1       Running   0          4h
+helloworld-dep-5cdb68cc76-rrkcn   1/1       Running   0          2h
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ #kube-dns-54cccfbdf8-f5fbr
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get deploy -n kube-system kube-dns
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kube-dns   1         1         1            1           85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get rs -n kube-system kube-dns kube-dns-54cccfbdf8
+Error from server (NotFound): replicasets.extensions "kube-dns" not found
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get rs -n kube-system kube-dns-54cccfbdf8
+NAME                  DESIRED   CURRENT   READY     AGE
+kube-dns-54cccfbdf8   1         1         1         85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pod -n kube-system kube-dns-54cccfbdf8-f5fbr
+NAME                        READY     STATUS    RESTARTS   AGE
+kube-dns-54cccfbdf8-f5fbr   3/3       Running   42         21d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get svc -n kube-system kube-dns
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
+kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP   85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get deploy
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+helloworld-dep   2         2         2            2           4h
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get rs
+NAME                        DESIRED   CURRENT   READY     AGE
+helloworld-dep-5cdb68cc76   2         2         2         4h
+helloworld-dep-7b64bc55d4   0         0         0         4h
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-qdtmq   1/1       Running   0          4h
+helloworld-dep-5cdb68cc76-rrkcn   1/1       Running   0          2h
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+hw-svc       NodePort    10.96.43.1   <none>        8888:31001/TCP   2h
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP          85d
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl exec helloworld-dep-7b64bc55d4 -- cat /etc/resolv.conf
+Error from server (NotFound): pods "helloworld-dep-7b64bc55d4" not found
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl exec helloworld-dep-7b64bc55d4-rrkcn -- cat /etc/resolv.conf
+Error from server (NotFound): pods "helloworld-dep-7b64bc55d4-rrkcn" not found
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ kubectl exec helloworld-dep-5cdb68cc76-rrkcn -- cat /etc/resolv.conf
+cat: can't open 'E:/downloads/cmder/vendor/git-for-windows/etc/resolv.conf': No such file or directory
+command terminated with exit code 1
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
+Dell lap@Dell ~/docker-workshop/mar4/ora-mar4-dock-kube/k8s (master)
+λ
